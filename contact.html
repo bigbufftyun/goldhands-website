@@ -8,7 +8,7 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-	<title>Referral Page</title>
+	<title>Contact Us</title>
 </head>
 <body>
 	<nav id = "main-nav" nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,10 +28,10 @@
 				<li class="nav-item">
 					<a class="nav-link" href="index.html#about-us">About Us</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item active">
 					<a class="nav-link" href="contact.html">Contact</a>
 				</li>
-				<li class="nav-item active">
+				<li class="nav-item">
 					<a class="nav-link" href="referral-form.html">Referral Form</a>
 				</li>
 			</ul>
@@ -41,52 +41,69 @@
 		</div>
 	</nav>
 
-
 	<div class="container">
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container">
-				<h1 class="display-4">Referral Form</h1>
-				<p class="lead">Psychiatric Rehabilitation Program</p>
+				<h1 class="display-4">Contact Form</h1>
 			</div>
 		</div>
-		<form>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="inputFirstName">First Name</label>
-					<input type="first-name" class="form-control" id="inputFirstName">
-				</div>
-				<div class="form-group col-md-6">
-					<label for="inputLastName">Last Name</label>
-					<input type="last-name" class="form-control" id="inputLastName">
-				</div>
+		<div class="row">
+			<div class="col-8">
+				<form>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputFirstName">First Name</label>
+							<input type="first-name" class="form-control" id="inputFirstName">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputLastName">Last Name</label>
+							<input type="last-name" class="form-control" id="inputLastName">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputEmail">Email</label>
+							<input type="email" class="form-control" id="inputEmail">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputPhone">Phone Number</label>
+							<input type="phone-number" class="form-control" id="inputPhone">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlTextarea1">Message</label>
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
 			</div>
-			<div class="form-group">
-				<label for="inputAddress">Address</label>
-				<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-			</div>
-			<div class="form-group">
-				<label for="inputAddress2">Address 2</label>
-				<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-			</div>
-			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label for="inputCity">City</label>
-					<input type="text" class="form-control" id="inputCity">
+			<div class="col-4">
+				<div class="card">
+					<h5 class="card-header">Contact Us</h5>
+					<div class="card-body">
+						<h5 class="card-title">Get in touch today!</h5>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Phone Number
+							<p>(123) 456-7890</p>
+						</li>
+						<li class="list-group-item">Fax Number
+							<p>(123) 456-7890</p>
+						</li>
+						<li class="list-group-item">Email
+							<p>golden@email.com</p>
+						</li>
+						<li class="list-group-item">Address
+							<p>123 golden ave, gold city gh</p>
+						</li>
+					</ul>
 				</div>
-				<div class="form-group col-md-4">
-					<label for="inputState">State</label>
-					<select id="inputState" class="form-control">
-						<option selected>Choose...</option>
-						<option>...</option>
-					</select>
-				</div>
-				<div class="form-group col-md-2">
-					<label for="inputZip">Zip</label>
-					<input type="text" class="form-control" id="inputZip">
-				</div>
-			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>	
+
+		</div>
+			
 	</div>
 
 	<!-- Optional JavaScript; choose one of the two! -->

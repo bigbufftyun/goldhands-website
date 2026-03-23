@@ -12,7 +12,7 @@
 </head>
 <body>
 	<nav id = "main-nav" nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="index.html">GoldenHands Homecare</a>
+		<a class="navbar-brand" href="index.html"><img src="https://image.koreaboo.com/2026/01/BTS-3.jpg" height="50" width="200"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -23,38 +23,41 @@
 					<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#services">Services</a>
+					<a class="nav-link" href="index.html#about-us">About Us</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#about-us">About Us</a>
+					<a class="nav-link" href="index.html#services">Services</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="contact.html">Contact</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="referral-form.html">Referral Form</a>
-				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<a class="btn btn-primary btn-lg" href="login.html" role="button">Login</a>
+				<a class="btn btn-primary btn-md" href="login.html" role="button">Login</a>
 			</form>
 		</div>
 	</nav>
 
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-4">Welcome to Golden Hands Homecare</h1>
+			<p class="lead">Improving the Quality of Life for People with Mental Illness.</p>
+			<a class="btn btn-primary btn-lg" href="login.html" role="button">Book Appointment</a>
+		</div>
+	</div>
+
+<!-- About and Services sectioned by scrollspy -->
 	<div class="container">
 		<div class="row">
-			<div class="jumbotron">
-				<h1 class="display-4">Welcome message</h1>
-				<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-				<hr class="my-4">
-				<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-				<a class="btn btn-primary btn-lg" href="#" role="button">Book Appointment</a>
+			<div class="col-6" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+				<h4 id="about-us">About Us</h4>
+				<p>When you are struggling with mental health or substance abuse disorders, it is wise to seek professional support. Whether you are an adult, there is hope for betterment and restoration through rehabilitation programs and mental health services that use effective techniques and advanced technology. With the collaborative efforts of our team, you can trust us to help you improve your overall well-being.</p>
+			</div>
+			<div class="col-6">
+				<img src="https://bouve.northeastern.edu/wp-content/uploads/2023/05/psychiatrist-vs-psychologist-which-one-is-right-northeastern-graduate.webp" class="card-img-top">
 			</div>
 		</div>
 		<div class="row">
-			<div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
-				<h4 id="about-us">About Us</h4>
-				<p>scratch-o hey</p>
 				<h4 id="services">Services</h4>
 				<div class="row row-cols-1 row-cols-md-2">
 					<div class="col mb-4">
@@ -62,7 +65,7 @@
 							<img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">Individual/Behavioral Counseling</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+								<p class="card-text">We are committed to providing the best care to the people we serve. We help clients who may otherwise be unable to access behavioral and mental health services. Through community outreach, our outreach staff provides them with appropriate supports and resources they need. Our services are intended to strengthen social, mental, behavioral and emotional functioning by enhancing self-awareness and compassion to facilitates meaningful change.</p>
 							</div>
 						</div>
 					</div>
@@ -71,7 +74,7 @@
 							<img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">Community Outreach</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+								<p class="card-text">We are committed to providing the best care to the people we serve. We help clients who may otherwise be unable to access behavioral and mental health services. Through community outreach, our outreach staff provides them with appropriate supports and resources they need. Our services are intended to strengthen social, mental, behavioral and emotional functioning by enhancing self-awareness and compassion to facilitates meaningful change.</p>
 							</div>
 						</div>
 					</div>
@@ -80,7 +83,7 @@
 							<img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">Group Activities</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+								<p class="card-text">Golden Hands Homecare Inc. provides therapy service conducted within a group of people, usually individuals who are facing similar issues, rather than between a mental health professional and the patient. This can help patients realize that he or she is not alone that creates a revelation and a huge relief to the person. In this way, the members of the group who have the same problems can support each other and may offer suggestions in dealing with a particular situation that they may not have thought of.</p>
 							</div>
 						</div>
 					</div>
@@ -89,7 +92,7 @@
 							<img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">Psychiatric Rehabilitation and Mental Health Assistance</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+								<p class="card-text">Our Psychiatric Rehabilitation Program offers Rehabilitation Services to children, adolescent, and adult in need of therapeutic support. The sensitivity to the needs of those we serve is our goal.</p>
 							</div>
 						</div>
 					</div>
@@ -98,7 +101,7 @@
 							<img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">Medication Management</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+								<p class="card-text">There are many reasons why patients fail to adhere to their medications. A few of the causes include vision or hearing problems, lack of education about their health condition or the importance of their medications, fear of side effects, prescription costs, and more. Some patients do not see the immediate impact of medicines on their health, resulting in their ceasing of medication intake. Failure to comply with prescriptions does not only bring health consequences, but it can also further healthcare costs. To prevent this from happening, we offer effective medication management strategies aimed at improving medication compliance.</p>
 							</div>
 						</div>
 					</div>
@@ -107,7 +110,7 @@
 							<img src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title">Crisis Intervention</h5>
-								<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+								<p class="card-text">Certain circumstances, such as sudden death of a loved one, excruciating physical injury, natural catastrophes, and certain emotional troubles can cause long-term psychological trauma. Professional counseling services and compassionate support must be provided immediately to the victims. We offer critical and short-term care for our clients the time they need us the most.</p>
 							</div>
 						</div>
 					</div>

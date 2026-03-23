@@ -23,21 +23,18 @@
 					<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="index.html#services">Services</a>
+					<a class="nav-link" href="index.html#about-us">About Us</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="index.html#about-us">About Us</a>
+					<a class="nav-link" href="index.html#services">Services</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="contact.html">Contact</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="referral-form.html">Referral Form</a>
-				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<p>Antonio Miitopia </p>
-				<a class="btn btn-primary btn-lg" href="dashboard.html" role="button">Patient Dashboard</a>
+				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Antonio Miitopia</a>
+				<a class="btn btn-primary btn-md" href="dashboard.html" role="button">Patient Dashboard</a>
 			</form>
 		</div>
 	</nav>
@@ -54,7 +51,7 @@
 							<a class="nav-link" href="schedule-app.html">Schedule Appointment</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Appointment History</a>
+							<a class="nav-link" href="appointment-history.html">Appointment History</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">Payments</a>
@@ -71,56 +68,54 @@
 						<h1 class="display-4">Schedule Appointment</h1>
 					</div>
 				</div>
+				<form>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputEmail4">Email</label>
+							<input type="email" class="form-control" id="inputEmail4">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputPassword4">Password</label>
+							<input type="password" class="form-control" id="inputPassword4">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputAddress">Address</label>
+						<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+					</div>
+					<div class="form-group">
+						<label for="inputAddress2">Address 2</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputCity">City</label>
+							<input type="text" class="form-control" id="inputCity">
+						</div>
+						<div class="form-group col-md-4">
+							<label for="inputState">State</label>
+							<select id="inputState" class="form-control">
+								<option selected>Choose...</option>
+								<option>...</option>
+							</select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="inputZip">Zip</label>
+							<input type="text" class="form-control" id="inputZip">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="gridCheck">
+							<label class="form-check-label" for="gridCheck">
+								Check me out
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary">Cancel</button>
+				</form>
 			</div>
-		</div>
-		<div class="row">
-			<form>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="inputEmail4">Email</label>
-						<input type="email" class="form-control" id="inputEmail4">
-					</div>
-					<div class="form-group col-md-6">
-						<label for="inputPassword4">Password</label>
-						<input type="password" class="form-control" id="inputPassword4">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="inputAddress">Address</label>
-					<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-				</div>
-				<div class="form-group">
-					<label for="inputAddress2">Address 2</label>
-					<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="inputCity">City</label>
-						<input type="text" class="form-control" id="inputCity">
-					</div>
-					<div class="form-group col-md-4">
-						<label for="inputState">State</label>
-						<select id="inputState" class="form-control">
-							<option selected>Choose...</option>
-							<option>...</option>
-						</select>
-					</div>
-					<div class="form-group col-md-2">
-						<label for="inputZip">Zip</label>
-						<input type="text" class="form-control" id="inputZip">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="gridCheck">
-						<label class="form-check-label" for="gridCheck">
-							Check me out
-						</label>
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<button type="submit" class="btn btn-primary">Cancel</button>
-			</form>
 		</div>
 	</div>
 

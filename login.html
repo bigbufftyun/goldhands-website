@@ -23,49 +23,105 @@
 					<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#services">Services</a>
+					<a class="nav-link" href="index.html#about-us">About Us</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#about-us">About Us</a>
+					<a class="nav-link" href="index.html#services">Services</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="contact.html">Contact</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="referral-form.html">Referral Form</a>
-				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<a class="btn btn-primary btn-lg" href="login.html" role="button">Login</a>
+				<a class="btn btn-primary btn-md" href="login.html" role="button">Login</a>
 			</form>
 		</div>
 	</nav>
+
+<!-- Container for user to choose patient, therapist or administrator login -->
 	<div class="container">
 		<div class="card text">
 			<div class="card-body">
-				<form>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail">
+				<div class="row">
+					<div class="col-4">
+						<div class="list-group" id="list-tab" role="tablist">
+							<a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Patient Login</a>
+							<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Therapist Login</a>
+							<a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Admin Login</a>
 						</div>
 					</div>
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword">
+
+					<!-- Collecting user email and password through a form -->
+					<div class="col-8">
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+								<form>
+									<div class="form-group row">
+										<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+										<div class="col-sm-10">
+											<input type="email" class="form-control" id="inputEmailP">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" id="inputPasswordP">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-10">
+											<a class="btn btn-primary" href="dashboard.html" role="button">Sign in</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+								<form>
+									<div class="form-group row">
+										<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+										<div class="col-sm-10">
+											<input type="email" class="form-control" id="inputEmailT">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" id="inputPasswordT">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-10">
+											<a class="btn btn-primary" href="therapist-dashboard.html" role="button">Sign in</a>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+								<form>
+									<div class="form-group row">
+										<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+										<div class="col-sm-10">
+											<input type="email" class="form-control" id="inputEmailA">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" id="inputPasswordA">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-10">
+											<button type="submit" class="btn btn-primary" href="x">Sign in</button>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
-					<div class="form-group row">
-						<div class="col-sm-10">
-							<a href="dashboard.html" class="btn btn-primary">Sign In</a>
-							<a href="#" class="card-link">Register Now</a>
-						</div>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-				
 	</div>
 
 	<!-- Optional JavaScript; choose one of the two! -->

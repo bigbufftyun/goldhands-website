@@ -19,7 +19,15 @@ patient - **COMPLETED**
 - (patient) profile settings
     
 therapist -
-- therapist dashboard
-- app details
+- therapist dashboard [**DONE**]
+- app details [**DONE**] (but maybe change to a button list group instead of collapse accordian)
 - health records
+- t schedule management
+
+admin -
+- dashboard (shows today's schedule with all therapists scheduled that day)
+- a health records
+- manage therapist [**DONE**]
+- manage schedule [**DONE**]
+- manage service [**DONE**]
 

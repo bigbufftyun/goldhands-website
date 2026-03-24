@@ -54,10 +54,10 @@
 							<a class="nav-link" href="appointment-history.html">Appointment History</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Payments</a>
+							<a class="nav-link" href="payments.html">Payments</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Profile Settings</a>
+							<a class="nav-link" href="p-profile-settings.html">Profile Settings</a>
 						</li>
 					</ul>
 				</div>
@@ -71,47 +71,113 @@
 				<form>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputEmail4">Email</label>
-							<input type="email" class="form-control" id="inputEmail4">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="inputPassword4">Password</label>
-							<input type="password" class="form-control" id="inputPassword4">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Address</label>
-						<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress2">Address 2</label>
-						<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="inputCity">City</label>
-							<input type="text" class="form-control" id="inputCity">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="inputState">State</label>
+							<label for="inputState">Step 1: Select Service</label>
 							<select id="inputState" class="form-control">
 								<option selected>Choose...</option>
-								<option>...</option>
+								<option>Counseling</option>
+								<option>Psychiatric Rehabilitation</option>
+								<option>Group Therapy</option>
 							</select>
 						</div>
-						<div class="form-group col-md-2">
-							<label for="inputZip">Zip</label>
-							<input type="text" class="form-control" id="inputZip">
+						<div class="form-group col-md-6">
+							<label for="inputState">Step 2: Select Therapist</label>
+							<select id="inputState" class="form-control">
+								<option selected>Choose...</option>
+								<option>Dr. Min</option>
+								<option>Dr. Kang</option>
+								<option>Dr. Pancham</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-8">
+							<label for="inputState">Step 3: Select Date</label>
+							<select id="inputState" class="form-control">
+								<option selected>Choose...</option>
+								<option>April 9th, 2026</option>
+								<option>April 10th, 2026</option>
+								<option>April 13th, 2026</option>
+								<option>April 15th, 2026</option>
+								<option>April 16th, 2026</option>
+							</select>
+						</div>
+						<div class="col-md-4">
+							<table class="table table-bordered table-sm">
+								<thead>
+									<tr>
+										<th colspan="7">April 2026</td>
+									</tr>
+									<tr>
+										<th scope="col">Sun</th>
+										<th scope="col">Mon</th>
+										<th scope="col">Tue</th>
+										<th scope="col">Wed</th>
+										<th scope="col">Thur</th>
+										<th scope="col">Fri</th>
+										<th scope="col">Sat</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>29</td>
+										<td>30</td>
+										<td>31</td>
+										<td>1</td>
+										<td>2</td>
+										<td>3</td>
+										<td>4</td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td>6</td>
+										<td>7</td>
+										<td>8</td>
+										<td>9</td>
+										<td>10</td>
+										<td>11</td>
+									</tr>
+									<tr>
+										<td>12</td>
+										<td>13</td>
+										<td>14</td>
+										<td>15</td>
+										<td>16</td>
+										<td>17</td>
+										<td>18</td>
+									</tr>
+									<tr>
+										<td>19</td>
+										<td>20</td>
+										<td>21</td>
+										<td>22</td>
+										<td>23</td>
+										<td>24</td>
+										<td>25</td>
+									</tr>
+									<tr>
+										<td>26</td>
+										<td>27</td>
+										<td>28</td>
+										<td>29</td>
+										<td>30</td>
+										<td>1</td>
+										<td>2</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="gridCheck">
-							<label class="form-check-label" for="gridCheck">
-								Check me out
-							</label>
-						</div>
+						<label for="inputState">Step 4: Select Timeslot</label>
+						<select id="inputState" class="form-control">
+							<option selected>Choose...</option>
+							<option>10:30AM - 11:00AM</option>
+							<option>12:00PM - 1:30PM</option>
+							<option>2:30PM - 3:15PM</option>
+							<option>4:15PM - 5PM</option>
+						</select>
 					</div>
+					
 					<button type="submit" class="btn btn-primary">Submit</button>
 					<button type="submit" class="btn btn-primary">Cancel</button>
 				</form>

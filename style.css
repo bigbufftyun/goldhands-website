@@ -1,0 +1,1340 @@
+/* Index CSS*/ 
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+}
+ 
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+ 
+#main-nav .nav-link:hover,
+#main-nav .nav-link.active {
+  color: var(--gold-light) !important;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  border-radius: 2px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+ 
+#main-nav .btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+ 
+.jumbotron {
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 60%, var(--gold-dark) 100%);
+  color: var(--cream);
+  border-radius: 0;
+  margin-bottom: 0;
+  padding: 80px 0;
+}
+ 
+.jumbotron .display-4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--cream);
+  font-weight: 700;
+}
+ 
+.jumbotron .lead {
+  color: var(--brown-light);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+ 
+.jumbotron .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 32px;
+  border-radius: 2px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+ 
+.jumbotron .btn-primary:hover {
+  background-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+ 
+h4#about-us {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--brown-dark);
+  border-left: 4px solid var(--gold);
+  padding-left: 12px;
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+ 
+.col-6 p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+ 
+.col-6 img {
+  border-radius: 6px;
+  border: 3px solid var(--gold);
+  margin-top: 48px;
+  width: 100%;
+}
+ 
+h4#services {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--brown-dark);
+  border-left: 4px solid var(--gold);
+  padding-left: 12px;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+ 
+.card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+ 
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(59, 32, 8, 0.15);
+}
+ 
+.card-img-top {
+  border-radius: 6px 6px 0 0;
+  height: 180px;
+  object-fit: cover;
+}
+ 
+.card-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+  font-size: 1.1rem;
+}
+ 
+.card-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+}
+ 
+.card-body {
+  border-top: 3px solid var(--gold);
+  padding: 16px;
+}
+ 
+
+/* Contact CSS*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  margin: 0;
+}
+ 
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+/* Navbar */
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+ 
+#main-nav .nav-link:hover {
+  color: var(--gold-light) !important;
+}
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  border-radius: 2px;
+}
+ 
+#main-nav .btn-primary:hover {
+  background-color: var(--gold-light);
+}
+ 
+#main-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,1)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+ 
+/* Jumbotron */
+.jumbotron {
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 60%, var(--gold-dark) 100%);
+  color: var(--cream);
+  border-radius: 0;
+  padding: 40px 0;
+  margin-bottom: 32px;
+}
+ 
+.jumbotron .display-4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--cream);
+  font-weight: 700;
+}
+ 
+/* Form */
+label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brown-mid);
+}
+ 
+.form-control {
+  border: 1px solid var(--brown-light);
+  border-radius: 2px;
+  background-color: var(--cream);
+  color: var(--text-dark);
+}
+ 
+.form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  background-color: #fff;
+  outline: none;
+}
+ 
+textarea.form-control {
+  resize: vertical;
+}
+ 
+.btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+ 
+.btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--brown-dark);
+}
+ 
+/* Contact info card */
+.card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(59,32,8,0.1);
+}
+ 
+.card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  border-bottom: 2px solid var(--gold);
+}
+ 
+.card-body {
+  border-top: none;
+  padding: 16px;
+}
+ 
+.card-body p {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--text-dark);
+}
+ 
+.list-group-item {
+  background-color: #fff;
+  color: var(--brown-dark);
+  border-color: var(--brown-light);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+ 
+.list-group-item p {
+  font-weight: 400;
+  text-transform: none;
+  font-size: 0.9rem;
+  margin: 4px 0 0;
+  color: var(--text-dark);
+}
+
+
+/* Login CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+}
+ 
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+ 
+#main-nav .nav-link:hover,
+#main-nav .nav-link.active {
+  color: var(--gold-light) !important;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  border-radius: 2px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+ 
+#main-nav .btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+ 
+.container {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  max-width: 780px;
+}
+ 
+.card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(59, 32, 8, 0.1);
+}
+ 
+.card:hover {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(59, 32, 8, 0.1);
+}
+ 
+.card-body {
+  border-top: 3px solid var(--gold);
+  padding: 32px;
+}
+ 
+.list-group-item {
+  background-color: var(--cream);
+  color: var(--brown-mid);
+  border-color: var(--brown-light);
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+ 
+.list-group-item:hover {
+  background-color: var(--gold-light);
+  color: var(--brown-dark);
+}
+ 
+.list-group-item.active {
+  background-color: var(--brown-dark);
+  border-color: var(--brown-dark);
+  color: var(--gold);
+}
+ 
+.col-form-label {
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brown-mid);
+}
+ 
+.form-control {
+  border: 1px solid var(--brown-light);
+  border-radius: 2px;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+  background-color: #fff;
+  outline: none;
+}
+
+.tab-pane .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 28px;
+  border-radius: 2px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+ 
+.tab-pane .btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+
+
+/* Patient Dashboard CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  margin: 0;
+}
+ 
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+/* Navbar */
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+ 
+#main-nav .nav-link:hover {
+  color: var(--gold-light) !important;
+}
+ 
+#main-nav .nav-link.disabled {
+  color: var(--brown-light) !important;
+}
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  border-radius: 2px;
+}
+ 
+#main-nav .btn-primary:hover {
+  background-color: var(--gold-light);
+}
+ 
+#main-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,1)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+ 
+/* Layout */
+.container {
+  margin-top: 32px;
+  margin-bottom: 48px;
+}
+ 
+/* Sidebar card */
+.col-2 .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+ 
+.col-2 .card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 16px;
+}
+ 
+.col-2 .nav-link {
+  color: var(--brown-dark) !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 16px;
+  border-left: 3px solid transparent;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+ 
+.col-2 .nav-link:hover {
+  background-color: rgba(232, 201, 106, 0.15);
+  color: var(--brown-dark) !important;
+  border-left-color: var(--gold);
+}
+ 
+.col-2 .nav-link.active {
+  background-color: rgba(201, 168, 76, 0.15);
+  color: var(--brown-dark) !important;
+  border-left-color: var(--gold);
+  font-weight: 700;
+}
+ 
+/* Jumbotron */
+.jumbotron {
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 60%, var(--gold-dark) 100%);
+  color: var(--cream);
+  border-radius: 6px;
+  padding: 40px 32px;
+  margin-bottom: 24px;
+}
+ 
+.jumbotron .display-4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 2rem;
+}
+ 
+/* Appointments card */
+.col-10 .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+ 
+.col-10 .card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 16px;
+}
+ 
+.list-group-item {
+  background-color: #fff;
+  color: var(--brown-dark);
+  border-color: var(--brown-light);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-left: none;
+  border-right: none;
+  padding: 14px 16px;
+  transition: background-color 0.2s, color 0.2s;
+}
+ 
+.list-group-item:first-child {
+  border-top: none;
+}
+ 
+.list-group-item-action:hover {
+  background-color: rgba(232, 201, 106, 0.2);
+  color: var(--brown-dark);
+  border-left: 3px solid var(--gold);
+  padding-left: 13px;
+}
+
+
+/* Patient Schedule Appointment CSS */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  margin: 0;
+}
+ 
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+/* Navbar */
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+ 
+#main-nav .nav-link:hover {
+  color: var(--gold-light) !important;
+}
+ 
+#main-nav .nav-link.disabled {
+  color: var(--brown-light) !important;
+}
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  border-radius: 2px;
+}
+ 
+#main-nav .btn-primary:hover {
+  background-color: var(--gold-light);
+}
+ 
+#main-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,1)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+ 
+/* Layout */
+.container {
+  margin-top: 32px;
+  margin-bottom: 48px;
+}
+ 
+/* Sidebar */
+.col-2 .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+ 
+.col-2 .card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 16px;
+}
+ 
+.col-2 .nav-link {
+  color: var(--brown-dark) !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 16px;
+  border-left: 3px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+ 
+.col-2 .nav-link:hover {
+  background-color: rgba(232, 201, 106, 0.15);
+  border-left-color: var(--gold);
+}
+ 
+.col-2 .nav-link.active {
+  background-color: rgba(201, 168, 76, 0.15);
+  border-left-color: var(--gold);
+  font-weight: 700;
+}
+ 
+/* Jumbotron */
+.jumbotron {
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 60%, var(--gold-dark) 100%);
+  color: var(--cream);
+  border-radius: 6px;
+  padding: 40px 32px;
+  margin-bottom: 24px;
+}
+ 
+.jumbotron .display-4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 2rem;
+}
+ 
+/* Form */
+label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brown-mid);
+  margin-bottom: 5px;
+}
+ 
+.form-control {
+  border: 1px solid var(--brown-light);
+  border-radius: 2px;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-family: 'Lato', sans-serif;
+}
+ 
+.form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  background-color: #fff;
+  outline: none;
+}
+ 
+select.form-control {
+  cursor: pointer;
+}
+ 
+/* Calendar table */
+.table {
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+ 
+.table thead th {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  text-align: center;
+  padding: 8px 4px;
+}
+ 
+.table tbody td {
+  text-align: center;
+  padding: 6px 4px;
+  border-color: rgba(196,154,108,0.3);
+  color: var(--text-dark);
+}
+ 
+.table tbody tr:hover td {
+  background-color: rgba(232,201,106,0.15);
+}
+ 
+/* Buttons */
+.btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+ 
+.btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--brown-dark);
+}
+ 
+
+
+/* Patient Appointment History CSS */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  margin: 0;
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+/* Navbar */
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+ 
+#main-nav .nav-link:hover { color: var(--gold-light) !important; }
+#main-nav .nav-link.disabled { color: var(--brown-light) !important; }
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  border-radius: 2px;
+}
+ 
+#main-nav .btn-primary:hover { background-color: var(--gold-light); }
+ 
+#main-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,1)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+ 
+/* Layout */
+.container { margin-top: 32px; margin-bottom: 48px; }
+ 
+/* Sidebar */
+.col-2 .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+ 
+.col-2 .card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 16px;
+}
+ 
+.col-2 .nav-link {
+  color: var(--brown-dark) !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 16px;
+  border-left: 3px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+ 
+.col-2 .nav-link:hover {
+  background-color: rgba(232,201,106,0.15);
+  border-left-color: var(--gold);
+}
+ 
+.col-2 .nav-link.active {
+  background-color: rgba(201,168,76,0.15);
+  border-left-color: var(--gold);
+  font-weight: 700;
+}
+ 
+/* Jumbotron */
+.jumbotron {
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 60%, var(--gold-dark) 100%);
+  color: var(--cream);
+  border-radius: 6px;
+  padding: 40px 32px;
+  margin-bottom: 24px;
+}
+ 
+.jumbotron .display-4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 2rem;
+}
+ 
+/* Accordion */
+.accordion .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 0;
+  margin-bottom: 4px;
+  background-color: #fff;
+}
+ 
+.accordion .card:first-child { border-radius: 6px 6px 0 0; }
+.accordion .card:last-child  { border-radius: 0 0 6px 6px; }
+ 
+.accordion .card-header {
+  background-color: var(--brown-dark);
+  border-bottom: 2px solid var(--gold);
+  padding: 0;
+}
+ 
+.accordion .card-header .btn-link {
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px 20px;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+ 
+.accordion .card-header .btn-link:hover {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+ 
+.accordion .card-body {
+  background-color: var(--cream);
+  padding: 20px;
+  border-top: none;
+}
+ 
+/* Badge */
+.badge-success {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #2E7D32;
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+ 
+/* Tables */
+.table {
+  background-color: #fff;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+ 
+.table thead th {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  padding: 10px 14px;
+}
+ 
+.table tbody td {
+  padding: 10px 14px;
+  border-color: rgba(196,154,108,0.3);
+  color: var(--text-dark);
+  vertical-align: middle;
+}
+ 
+.table tbody tr:hover td {
+  background-color: rgba(232,223,208,0.4);
+}
+
+
+/* Patients Payments */
+
+
+
+
+
+
+
+/* Patient Profile Settings */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;600&display=swap');
+ 
+:root {
+  --gold:        #C9A84C;
+  --gold-light:  #E8C96A;
+  --gold-dark:   #A07830;
+  --brown-dark:  #3B2008;
+  --brown-mid:   #6B3A1F;
+  --brown-light: #C49A6C;
+  --cream:       #FDF6EC;
+  --text-dark:   #2C1A0E;
+}
+ 
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  margin: 0;
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  color: var(--brown-dark);
+}
+ 
+#main-nav {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 24px;
+}
+ 
+#main-nav .navbar-brand {
+  color: var(--gold) !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+ 
+#main-nav .nav-link {
+  color: var(--cream) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+ 
+#main-nav .nav-link:hover { color: var(--gold-light) !important; }
+#main-nav .nav-link.disabled { color: var(--brown-light) !important; }
+ 
+#main-nav .btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  border-radius: 2px;
+}
+ 
+#main-nav .btn-primary:hover { background-color: var(--gold-light); }
+ 
+#main-nav .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,168,76,1)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+ 
+.container { margin-top: 32px; margin-bottom: 48px; }
+ 
+.col-2 .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+ 
+.col-2 .card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 16px;
+}
+ 
+.col-2 .nav-link {
+  color: var(--brown-dark) !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 10px 16px;
+  border-left: 3px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+ 
+.col-2 .nav-link:hover {
+  background-color: rgba(232,201,106,0.15);
+  border-left-color: var(--gold);
+}
+ 
+.col-2 .nav-link.active {
+  background-color: rgba(201,168,76,0.15);
+  border-left-color: var(--gold);
+  font-weight: 700;
+}
+ 
+.jumbotron {
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-mid) 60%, var(--gold-dark) 100%);
+  color: var(--cream);
+  border-radius: 6px;
+  padding: 40px 32px;
+  margin-bottom: 24px;
+}
+ 
+.jumbotron .display-4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 2rem;
+}
+ 
+.col-10 .card {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
+}
+ 
+.col-10 .card-header {
+  background-color: var(--brown-dark);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--gold);
+  padding: 12px 16px;
+}
+ 
+.col-10 .card-body { padding: 24px; }
+ 
+label {
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brown-mid);
+  margin-bottom: 5px;
+  display: block;
+}
+ 
+.form-control {
+  border: 1px solid var(--brown-light);
+  border-radius: 2px;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+}
+ 
+.form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  background-color: #fff;
+  outline: none;
+}
+ 
+.form-control[readonly] {
+  background-color: rgba(253,246,236,0.6);
+  color: var(--brown-mid);
+  cursor: default;
+}
+ 
+.btn-primary {
+  background-color: var(--gold);
+  border-color: var(--gold-dark);
+  color: var(--brown-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+ 
+.btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--brown-dark);
+}
+ 
+.btn-secondary {
+  background-color: #fff;
+  border-color: var(--brown-light);
+  color: var(--brown-mid);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+ 
+.btn-secondary:hover {
+  background-color: var(--cream);
+  border-color: var(--brown-mid);
+  color: var(--brown-dark);
+}
+ 
+.modal-header {
+  background-color: var(--brown-dark);
+  border-bottom: 2px solid var(--gold);
+  padding: 16px 24px;
+}
+ 
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+ 
+.modal-header .close {
+  color: var(--cream);
+  opacity: 0.8;
+  text-shadow: none;
+}
+ 
+.modal-header .close:hover { color: var(--gold-light); opacity: 1; }
+ 
+.modal-body {
+  background-color: var(--cream);
+  padding: 24px;
+}
+ 
+.modal-footer {
+  background-color: var(--cream);
+  border-top: 1px solid var(--brown-light);
+  padding: 16px 24px;
+}
+ 
+.modal-content {
+  border: 1px solid var(--brown-light);
+  border-radius: 6px;
+  overflow: hidden;
+}

@@ -1,16 +1,16 @@
-main page - COMPLETED
+main page - **COMPLETED**
 - index (contains about & service information + nav bar)
 - contact page
 - login button
 
-login - COMPLETED
+login - **COMPLETED**
 - can select employee, therapist, & admin
 - clicking "sign in" on a particular user will take you to their page
 
 
 NOTE: currently working on finishing employee & admin pages
 
-employee - 
+employee - **COMPLETED**
 - dashboard
 - schedule app
 - appointment history

@@ -11,7 +11,7 @@
 	<!-- Custom External CSS -->
 	<link rel="stylesheet" type="text/css" href=style.css>
 
-	<title>Dashboard</title>
+	<title>Registration</title>
 </head>
 <body>
 	<nav id = "main-nav" nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,61 +31,73 @@
 				<li class="nav-item">
 					<a class="nav-link" href="index.html#services">Services</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item active">
 					<a class="nav-link" href="contact.html">Contact</a>
 				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Antonio Miitopia</a>
-				<a class="btn btn-primary" href="dashboard.html" role="button">Patient Dashboard</a>
+				<a class="btn btn-primary btn-md" href="login.html" role="button">Login</a>
 			</form>
 		</div>
 	</nav>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-2">
-				<div class="card">
-					<h5 class="card-header">Patient Dashboard</h5>
-					<ul class="nav flex-column">
-						<li class="nav-item">
-							<a class="nav-link active" href="dashboard.html">Dashboard</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="schedule-app.html">Schedule Appointment</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="appointment-history.html">Appointment History</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="payments.html">Payments</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="p-profile-settings.html">Profile Settings</a>
-						</li>
-						<li>
-							<a class="nav-link" href="index.html">Logout</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-10">
-				<div class="jumbotron jumbotron-fluid">
-					<div class="container">
-						<h1 class="display-4">Hello Antonio!</h1>
-					</div>
-				</div>
-				<div class="card">
-					<div class="card-header">
-						Upcoming Appointments
-					</div>
-					<a href="#" class="list-group-item list-group-item-action">March 9, 2026 - Follow-Up Appointment</a>
-					<a href="#" class="list-group-item list-group-item-action">March 20, 2026 - One-on-One Session</a>
-					<a href="#" class="list-group-item list-group-item-action">March 26, 2026 - One-on-One Session</a>
-				</div>
+
+	<div class="container">
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4">Registration</h1>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-12">
+				<form>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputFirstName">First Name</label>
+							<input type="first-name" class="form-control" id="inputFirstName">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputLastName">Last Name</label>
+							<input type="last-name" class="form-control" id="inputLastName">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputEmail">Email</label>
+							<input type="email" class="form-control" id="inputEmail">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputPhone">Phone Number</label>
+							<input type="phone-number" class="form-control" id="inputPhone">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputAddress">Address</label>
+						<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputCity">City</label>
+							<input type="text" class="form-control" id="inputCity">
+						</div>
+						<div class="form-group col-md-4">
+							<label for="inputState">State</label>
+							<select id="inputState" class="form-control">
+								<option selected>Choose...</option>
+								<option>...</option>
+							</select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="inputZip">Zip</label>
+							<input type="text" class="form-control" id="inputZip">
+						</div>
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+			
 	</div>
-
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

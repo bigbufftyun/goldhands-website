@@ -35,6 +35,14 @@ if(isset($_SESSION['pEmail'])) {
 		<div class="row">
 			<div class="col-12">
 				<form action="registration.php" method="POST">
+					<div class="form-group">
+						<label for="inputEmail">Email</label>
+						<input type="email" class="form-control" id="inputEmail" name="pEmail">
+					</div>
+					<div class="form-group">
+						<label for="inputPassword">Password</label>
+						<input type="text" class="form-control" id="inputPassword" name="pPassword">
+					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputFirstName">First Name</label>
@@ -46,22 +54,14 @@ if(isset($_SESSION['pEmail'])) {
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="inputEmail">Email</label>
-							<input type="email" class="form-control" id="inputEmail" name="pEmail">
-						</div>
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label for="inputPhone">Phone Number</label>
-							<input type="phone-number" class="form-control" id="inputPhone" name="pPhone">
+							<input type="phone-number" class="form-control" id="inputPhone" placeholder="1234567890" name="pPhone">
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword">Password</label>
-						<input type="text" class="form-control" id="inputPassword" name="pPassword">
-					</div>
-					<div class="form-group">
-						<label for="inputAddress">Address</label>
-						<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="pAddress">
+						<div class="form-group col-md-8">
+							<label for="inputAddress">Address</label>
+							<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="pAddress">
+						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
@@ -97,7 +97,9 @@ if(isset($_SESSION['pEmail'])) {
 						$state = $_POST['pState'];
 						$zipcode = $_POST['pZipcode'];
 
-						$query = "INSERT INTO Patients (patient_fname, patient_lname, p_password, p_email, p_phone, p_street, p_city, p_state, p_zipcode) VALUES ('{$fname}','{$lname}','{$password}','{$email}','{$phone}','{$address}','{$city}','{$state}','{$zipcode}');";
+						$hash = password_hash($password, PASSWORD_DEFAULT);
+
+						$query = "INSERT INTO Patients (patient_fname, patient_lname, p_password, p_email, p_phone, p_street, p_city, p_state, p_zipcode) VALUES ('{$fname}','{$lname}','{$hash}','{$email}','{$phone}','{$address}','{$city}','{$state}','{$zipcode}');";
 
 						runQuery($query);
 

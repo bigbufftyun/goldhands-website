@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+	<!-- Custom External CSS -->
+	<link rel="stylesheet" type="text/css" href=style.css>
+
+	<title>Homepage</title>
+</head>
+<?php
+	require_once('dbhelper.php');
+	session_start();
+
+?>
+
+	<?php if(isset($_SESSION['accessLevel']) AND $_SESSION['accessLevel'] == 1) { ?>
+
+		<p>You are currently logged in as a patient with the email <?php echo $_SESSION['pEmail']; ?></p>
+
+	<?php } else { ?>
+		<p>You are not logged in.</p>
+
+	<?php } ?>
+
+
+
+<body>
+	<?php require_once 'navbar.php'; ?>
+
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-4">Welcome to Golden Hands Homecare</h1>
+			<p class="lead">Improving the Quality of Life for People with Mental Illness.</p>
+			<a class="btn btn-primary btn-lg" href="schedule-app.php" role="button">Book Appointment</a>
+			<a class="btn btn-primary btn-lg" href="registration.php" role="button">Registration</a>
+		</div>
+	</div>
+
+<!-- About and Services sectioned by scrollspy -->
+	<div class="container">
+		<div class="row">
+			<div class="col-6" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+				<h4 id="about-us">About Us</h4>
+				<p>When you are struggling with mental health or substance abuse disorders, it is wise to seek professional support. Whether you are an adult, there is hope for betterment and restoration through rehabilitation programs and mental health services that use effective techniques and advanced technology. With the collaborative efforts of our team, you can trust us to help you improve your overall well-being.</p>
+			</div>
+			<div class="col-6">
+				<img src="https://bouve.northeastern.edu/wp-content/uploads/2023/05/psychiatrist-vs-psychologist-which-one-is-right-northeastern-graduate.webp" class="card-img-top">
+			</div>
+		</div>
+		<div class="row">
+				<h4 id="services">Services</h4>
+				<div class="row row-cols-1 row-cols-md-2">
+					<div class="col mb-4">
+						<div class="card">
+							<img src="https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/02/Therapist-explaining-male-patient-during-session-1296x728-header.jpg?w=1155&h=1528" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Individual/Behavioral Counseling</h5>
+								<p class="card-text">We are committed to providing the best care to the people we serve. We help clients who may otherwise be unable to access behavioral and mental health services. Through community outreach, our outreach staff provides them with appropriate supports and resources they need. Our services are intended to strengthen social, mental, behavioral and emotional functioning by enhancing self-awareness and compassion to facilitates meaningful change.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col mb-4">
+						<div class="card">
+							<img src="https://thumbs.dreamstime.com/b/smiling-asian-psychiatrist-md-man-doctor-researching-laptop-mental-health-problems-clinical-depression-people-187995462.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Community Outreach</h5>
+								<p class="card-text">We are committed to providing the best care to the people we serve. We help clients who may otherwise be unable to access behavioral and mental health services. Through community outreach, our outreach staff provides them with appropriate supports and resources they need. Our services are intended to strengthen social, mental, behavioral and emotional functioning by enhancing self-awareness and compassion to facilitates meaningful change.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col mb-4">
+						<div class="card">
+							<img src="https://www.verywellmind.com/thmb/8GRkCUFsNCGGRs2gJ9GdysPTOgQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/diverse-people-sit-in-circle-and-brainstorm-ideas-1163038341-c0805b192d7f42a4b82fbf93b1b97d4e.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Group Activities</h5>
+								<p class="card-text">Golden Hands Homecare Inc. provides therapy service conducted within a group of people, usually individuals who are facing similar issues, rather than between a mental health professional and the patient. This can help patients realize that he or she is not alone that creates a revelation and a huge relief to the person. In this way, the members of the group who have the same problems can support each other and may offer suggestions in dealing with a particular situation that they may not have thought of.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col mb-4">
+						<div class="card">
+							<img src="https://www.healthychildren.org/SiteCollectionImagesArticleImages/finding-mental-health-care-for-your-child.jpg?RenditionID=3" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Psychiatric Rehabilitation and Mental Health Assistance</h5>
+								<p class="card-text">Our Psychiatric Rehabilitation Program offers Rehabilitation Services to children, adolescent, and adult in need of therapeutic support. The sensitivity to the needs of those we serve is our goal.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col mb-4">
+						<div class="card">
+							<img src="https://images.cdn-files-a.com/uploads/5873279/800_61d7b6ecb397f_filter_61d7b6fbcf8ef.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Medication Management</h5>
+								<p class="card-text">There are many reasons why patients fail to adhere to their medications. A few of the causes include vision or hearing problems, lack of education about their health condition or the importance of their medications, fear of side effects, prescription costs, and more. Some patients do not see the immediate impact of medicines on their health, resulting in their ceasing of medication intake. Failure to comply with prescriptions does not only bring health consequences, but it can also further healthcare costs. To prevent this from happening, we offer effective medication management strategies aimed at improving medication compliance.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col mb-4">
+						<div class="card">
+							<img src="https://www.verywellmind.com/thmb/bjl4fB0lxWqE6mGJvV5jVowfzWs=/2309x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1316037109-befbf7445a0d4fb28c0b81685520ae1e.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Crisis Intervention</h5>
+								<p class="card-text">Certain circumstances, such as sudden death of a loved one, excruciating physical injury, natural catastrophes, and certain emotional troubles can cause long-term psychological trauma. Professional counseling services and compassionate support must be provided immediately to the victims. We offer critical and short-term care for our clients the time they need us the most.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<!-- Optional JavaScript; choose one of the two! -->
+
+	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+	-->
+</body>
+</html>

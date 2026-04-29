@@ -6,10 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
 	<!-- Custom External CSS -->
-	<link rel="stylesheet" type="text/css" href=style.css>
+	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<title>Admin Analytics</title>
 </head>
@@ -22,12 +22,14 @@
 		header("Location: index.php");
 	}
 
+	// COUNTS
 	$totalPatients = getOneRow("SELECT COUNT(*) AS total FROM Patients");
 	$totalTherapists = getOneRow("SELECT COUNT(*) AS total FROM Therapists");
 	$totalAppointments = getOneRow("SELECT COUNT(*) AS total FROM AppointmentDetails");
 	$totalServices = getOneRow("SELECT COUNT(*) AS total FROM ServiceDetails");
 	$totalNotes = getOneRow("SELECT COUNT(*) AS total FROM AppointmentNotes");
 
+	// RECENT APPOINTMENTS
 	$query = "
 	SELECT 
 		AppointmentDetails.appointment_id,
@@ -49,6 +51,26 @@
 	";
 
 	$appointments = getRows($query);
+
+	// APPOINTMENT STATUS BREAKDOWN
+	$statusQuery = "
+	SELECT status, COUNT(*) AS total
+	FROM AppointmentDetails
+	GROUP BY status
+	";
+
+	$statuses = getRows($statusQuery);
+
+	// MOST POPULAR SERVICES
+	$serviceQuery = "
+	SELECT ServiceDetails.service_name, COUNT(*) AS total
+	FROM AppointmentDetails
+	LEFT JOIN ServiceDetails ON AppointmentDetails.service_id = ServiceDetails.service_id
+	GROUP BY ServiceDetails.service_name
+	ORDER BY total DESC
+	";
+
+	$services = getRows($serviceQuery);
 ?>
 
 <body>
@@ -57,8 +79,9 @@
 	<div class="container-fluid">
 		<div class="row">
 			<?php require_once("patient_nav.php")?>
-			
+
 			<div class="col-10">
+
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
 						<h1 class="display-4">Admin Analytics Dashboard</h1>
@@ -66,6 +89,7 @@
 					</div>
 				</div>
 
+				<!-- SUMMARY CARDS -->
 				<div class="row">
 
 					<div class="col-md-3 mb-4">
@@ -111,7 +135,6 @@
 				</div>
 
 				<div class="row">
-
 					<div class="col-md-3 mb-4">
 						<div class="card text-center">
 							<div class="card-body">
@@ -121,9 +144,67 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 
+				<!-- APPOINTMENT STATUS BREAKDOWN -->
+				<div class="card-header">
+					Appointment Status Breakdown
+				</div>
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Status</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<?php
+						if($statuses) {
+							foreach($statuses as $status) {
+								echo "<tr>";
+								echo "<td>{$status['status']}</td>";
+								echo "<td>{$status['total']}</td>";
+								echo "</tr>";
+							}
+						} else {
+							echo "<tr><td colspan='2' class='text-center'>No status data found.</td></tr>";
+						}
+						?>
+					</tbody>
+				</table>
+
+				<!-- MOST POPULAR SERVICES -->
+				<div class="card-header">
+					Most Popular Services
+				</div>
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Service</th>
+							<th scope="col">Total Bookings</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<?php
+						if($services) {
+							foreach($services as $service) {
+								echo "<tr>";
+								echo "<td>{$service['service_name']}</td>";
+								echo "<td>{$service['total']}</td>";
+								echo "</tr>";
+							}
+						} else {
+							echo "<tr><td colspan='2' class='text-center'>No service data found.</td></tr>";
+						}
+						?>
+					</tbody>
+				</table>
+
+				<!-- RECENT APPOINTMENTS -->
 				<div class="card-header">
 					Recent Appointments
 				</div>
@@ -170,8 +251,9 @@
 
 	<!-- Optional JavaScript; choose one of the two! -->
 
-	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0sSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+	<!-- Option 1: jQuery and Bootstrap Bundle includes Popper -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

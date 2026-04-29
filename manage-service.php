@@ -13,33 +13,34 @@
 
 	<title>Manage Services</title>
 </head>
+
 <?php
 require_once("dbhelper.php");
-require_once("filehelper.php");
 session_start();
 
-if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
+if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 	header("Location: index.php");
+	exit();
 }
 
+$query = "SELECT * FROM ServiceDetails;";
+$records = getRows($query);
 ?>
+
 <body>
-	<?php require_once('navbar.php'); 
-
-	$query = "SELECT * FROM ServiceDetails;";
-	$records = getRows($query);
-
-	?>
+	<?php require_once('navbar.php'); ?>
 	
 	<div class="container-fluid">
 		<div class="row">
 			<?php require_once("patient_nav.php")?>
+
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
 						<h1 class="display-4">Manage Services</h1>
 					</div>
 				</div>
+
 				<div class="card">
 					<div class="card-header">
 						Current Services
@@ -53,7 +54,6 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 										<table class="table table-bordered table-sm">
 											<thead>
 												<tr>
-													<th>Service Image</th>
 													<th>Service Name</th>
 													<th>Description</th>
 													<th>Duration</th>
@@ -62,26 +62,34 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 													<th>Action</th>
 												</tr>
 											</thead>
+
 											<tbody>
-												<?php 
-												if ($records) {
-													foreach($records as $record) {
-														echo"<tr>";
-														echo"<td><a href='{$record['img_url']}'></td>";
-														echo"<td>{$record['service_name']}</td>";
-														echo"<td>{$record['description']}</td>";
-														echo"<td>{$record['duration_minutes']}</td>";
-														echo"<td>{$record['base_price']}</td>";
-														echo"<td>{$record['service_active']}";
-														echo"<td><button type='button' class='btn btn-primary btn-sm'>Edit</button><button type='button' class='btn btn-primary btn-sm'>Delete</button></td>";
-														echo"</tr>";
+											<?php 
+											if ($records) {
+												foreach($records as $record) {
+													echo "<tr>";
+													echo "<td>{$record['service_name']}</td>";
+													echo "<td>{$record['description']}</td>";
+													echo "<td>{$record['duration_minutes']}</td>";
+													echo "<td>{$record['base_price']}</td>";
+													echo "<td>{$record['service_active']}</td>";
 
+													echo "<td>
+														<a href='edit-service.php?serviceID={$record['service_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 
-													}
-												} else {
-													echo "<p>No services found.</p>";
+														<a href='delete-service.php?serviceID={$record['service_id']}'
+														   class='btn btn-warning btn-sm'
+														   onclick=\"return confirm('Are you sure you want to delete this service?');\">
+														   DELETE
+														</a>
+													</td>";
+
+													echo "</tr>";
 												}
-												?>
+											} else {
+												echo "<tr><td colspan='6'>No services found.</td></tr>";
+											}
+											?>
 											</tbody>
 										</table>
 									</div>
@@ -98,24 +106,25 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 					</div>
 				</div>
 
-
 				<div class="collapse" id="collapseExample">
 					<div class="card card-body">
-						<form action="manage-service.php" method="POST" enctype="multipart/form-data">
+						<form action="manage-service.php" method="POST">
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="inputEmail4">Service Name</label>
 									<input type="text" class="form-control" id="inputFirstName" name='sName'>
 								</div>
 							</div>
+
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="exampleFormControlTextarea1">Service Description</label>
 									<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name='sDescription'></textarea>
 								</div>
 							</div>
+
 							<div class="form-row">
-								<div class="form-group col-md-3">
+								<div class="form-group col-md-4">
 									<label for="inputEmail4">Price</label>
 									<div class="input-group mb-3">
 										<div class="input-group-prepend">
@@ -124,7 +133,8 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 										<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="00.00" name='sPrice'>
 									</div>
 								</div>
-								<div class="form-group col-md-3">
+
+								<div class="form-group col-md-5">
 									<label for="inputState">Duration (minutes)</label>
 									<select id="inputState" class="form-control" name='sDuration'>
 										<option selected value="30">30</option>
@@ -134,23 +144,20 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 										<option value="120">120</option>
 									</select>
 								</div>
+
 								<div class="form-group col-md-3">
 									<label for="inputPassword4">Status</label>
 									<select id="inputState" class="form-control" name='sStatus'>
 										<option selected value="Active">Active</option>
 									</select>
 								</div>
-								<div class="form-group col-md-3">
-									<label for="inputPassword4">Upload Image</label>
-									<input class="form-control" type="file" name="sImage">
-								</div>
 							</div>
+					
 							<button type="submit" name='add-service' class="btn btn-primary btn-sm">Submit</button>
 						</form>
-						<?php 
+
+						<?php
 						if(isset($_POST['add-service'])) {
-							$sImg = $_FILES['sImage'];
-							$imageURL = uploadFile($sImg, 'service-images');
 
 							$sName = $_POST['sName'];
 							$sDesc = $_POST['sDescription'];
@@ -158,18 +165,15 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 							$sDur = $_POST['sDuration'];
 							$sStat = $_POST['sStatus'];
 
+							$queryform = "INSERT INTO ServiceDetails 
+							(service_name, description, duration_minutes, base_price, service_active) 
+							VALUES ('{$sName}','{$sDesc}','{$sDur}','{$sPrice}','{$sStat}');";
 
-							runQuery("INSERT INTO ServiceDetails (service_name, description, duration_minutes, base_price, service_active, img_url) VALUES ('{$sName}','{$sDesc}','{$sDur}','{$sPrice}','{$sStat}','{$imageURL}')");
+							runQuery($queryform);
 
-							header("Location: manage-service.php?editService={$aID}");
-
-							$success = TRUE;
-						} 
-						?>
-						<?php 
-						if(isset($success) AND $success) {
-							echo "<p>File uploaded successfully.</p>";
-							}
+							header("Location: manage-service.php");
+							exit();
+						}
 						?>
 					</div>
 				</div>
@@ -177,7 +181,6 @@ if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 			</div>
 		</div>
 	</div>
-
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

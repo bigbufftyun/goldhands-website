@@ -58,16 +58,16 @@
 							<a class="nav-link active" href="admin-dashboard.php?adminID=<?php echo $_SESSION['aID'];?>">Dashboard</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="a-health-records.php">Health Records</a>
+							<a class="nav-link" href="a-health-records.php?adminID=<?php echo $_SESSION['aID'];?>">Health Records</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="manage-therapist.php">Manage Therapists</a>
+							<a class="nav-link" href="manage-therapist.php?adminID=<?php echo $_SESSION['aID'];?>">Manage Therapists</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="manage-schedule.php">Manage Schedules</a>
+							<a class="nav-link" href="manage-schedule.php?adminID=<?php echo $_SESSION['aID'];?>">Manage Schedules</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="manage-service.php">Manage Services</a>
+							<a class="nav-link" href="manage-service.php?editService=<?php echo $_SESSION['aID'];?>">Manage Services</a>
 						</li>
 						<li>
 							<a class="nav-link" href="logout.php">Logout</a>

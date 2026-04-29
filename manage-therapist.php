@@ -17,9 +17,11 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+	if(!isset($_SESSION['aEmail']) OR !isset($_GET['adminID'])) {
 		header("Location: index.php");
 	}
+
+	$aID = $_GET['adminID'];
 
 
 ?>
@@ -27,8 +29,12 @@
 	<?php require_once('navbar.php'); 
 
 	$query="SELECT * FROM Therapists;";
+	$records=getRows($query);
 
-	$records=getRows($query)
+	$query1 = "SELECT * FROM ServiceDetails";
+	$records1 = getRows($query1);
+
+
 
 
 	?>
@@ -91,87 +97,95 @@
 										</table>
 									</div>
 								</div>
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#profile-edit">
-									+ Add Therapist
-								</button>
-
-								<!-- Modal -->
-								<div class="modal fade" id="profile-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Edit Profile Information</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form>
-													<div class="form-row">
-														<div class="form-group col-md-6">
-															<label for="inputEmail4">First Name</label>
-															<input type="email" class="form-control" id="inputFirstName">
-														</div>
-														<div class="form-group col-md-6">
-															<label for="inputPassword4">Last Name</label>
-															<input type="password" class="form-control" id="inputLastName">
-														</div>
-													</div>
-													<div class="form-row">
-														<div class="form-group col-md-6">
-															<label for="inputState">Specialty</label>
-															<select id="inputState" class="form-control">
-																<option selected>Choose...</option>
-																<option>Individual Counseling</option>
-																<option>Individual Counseling</option>
-																<option>Individual Counseling</option>
-															</select>
-														</div>
-														<div class="form-group col-md-6">
-															<label for="inputState">Status</label>
-															<select id="inputState" class="form-control">
-																<option selected>Choose...</option>
-																<option>Senior Therapist</option>
-																<option>Senior Psychiatrist</option>
-																<option>Adolescent Psychiatrist</option>
-															</select>
-														</div>
-													</div>
-													<fieldset class="form-group">
-														<div class="row">
-															<legend class="col-form-label col-sm-4 pt-0">License</legend>
-															<div class="col-md-8">
-																<div class="form-check">
-																	<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-																	<label class="form-check-label" for="gridRadios1">
-																		Active
-																	</label>
-																</div>
-																<div class="form-check">
-																	<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-																	<label class="form-check-label" for="gridRadios2">
-																		Inactive
-																	</label>
-																</div>
-															</div>
-														</div>
-													</fieldset>
-												</form>
-
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Save changes</button>
-											</div>
-										</div>
-									</div>
-								</div>
+								<p>
+									<button class="btn btn-primary btn-sm float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+										Add Therapist Account
+									</button>
+								</p>
 							</form>
 						</p>
 					</div>
 				</div>
-				
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body">	
+						<form action="manage-therapist.php" method="POST">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputEmail4">First Name</label>
+									<input type="text" class="form-control" id="inputFirstName" name='tFName'>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputPassword4">Last Name</label>
+									<input type="text" class="form-control" id="inputLastName" name='tLName'>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-4">
+									<label for="inputEmail4">Email</label>
+									<input type="email" class="form-control" id="inputFirstName" name='tEmail'>
+								</div>
+								<div class="form-group col-md-4">
+									<label for="inputPassword4">Phone Number</label>
+									<input type="number" max="9999999999" class="form-control" id="inputLastName" name='tPhone'>
+								</div>
+								<div class="form-group col-md-4">
+									<label for="inputPassword4">Password</label>
+									<input type="password" class="form-control" id="inputLastName" name='tPassword'>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputState">Specialty</label>
+									<?php
+									echo "<select id='inputState' class='form-control' name='tService'>";
+									foreach($records1 as $record1) {
+										$sID = $record1['service_id'];
+										$sName = $record1['service_name'];
+
+										echo "<option value='".$sID."'>".$sName."</option>";
+									}
+									echo "</select>";
+									?>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputState">Status</label>
+									<select id='inputState' class='form-control' name='tStatus'>
+										<option value='Active'>Active</option>
+										<option value='Inactive'>Inactive</option>
+									</select>
+								</div>
+
+							</div>
+							<button type="submit" name='add-thera' class="btn btn-primary btn-sm float-right">Submit</button>
+
+						</form>
+						<?php
+						if(isset($_POST['add-thera'])) {
+
+							$fName = $_POST['tFName'];
+							$lName = $_POST['tLName'];
+							$email = $_POST['tEmail'];
+							$phone = $_POST['tPhone'];
+							$service = $_POST['tService'];
+							$stat = $_POST['tStatus'];
+							$tPass = $_POST['tPassword'];
+
+							$hash = password_hash($tPass, PASSWORD_DEFAULT);
+
+							$qlog = "INSERT INTO Therapists (therapist_fname, therapist_lname, t_email, t_phone, specialty, license_active, t_password) VALUES ('{$fname}','{$lname}','{$email}','{$phone}','{$service}','{$stat}', '{$hash}');";
+
+							runQuery($qlog);
+
+							echo "<p>Successfully added therapist.</p>";
+
+							header("Location: manage-service.php?editService={$aID}");
+						}
+						?>
+
+
+							
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

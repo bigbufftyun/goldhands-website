@@ -17,18 +17,20 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+if(!isset($_SESSION['aEmail']) OR !isset($_GET['adminID'])) {
 	header("Location: index.php");
 }
+
+$query = "SELECT * FROM Patients;";
+
+$records = getRows($query)
 
 
 ?>
 <body>
 	<?php require_once('navbar.php');
 
-	$query = "SELECT * FROM Patients;";
-
-	$records = getRows($query)
+	
 
 	?>
 	<div class="container-fluid">
@@ -44,80 +46,65 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 					<div class="card-header">
 						Current Patient Records
 					</div>
-					
-					
-					
-					
-					
-					<?php
-					if ($records) {
-						foreach($records as $record) {
-							echo"<div class='card'>";
-							echo"<div class='card-body'>";
-							echo"<table class='table table-bordered'>";
-							echo"<thead>";
-							echo"<tr>";
-							echo"<th scope='col'>First</th>";
-							echo"<th scope='col'>Last</th>";
-							echo"<th scope='col'>Email</th>";
-							echo"<th scope='col'>Phone</th>";
-							echo"</tr>";
-							echo"</thead>";
-							echo"<tbody>";
-							echo "<tr>";
-							echo "<td>{$record['patient_fname']}</td>";
-							echo "<td>{$record['patient_lname']}</td>";
-							echo "<td>{$record['p_email']}</td>";
-							echo "<td>{$record['p_phone']}</td>";
-							echo"</tbody>";
-							echo"</table>";
-
-							echo"<table class='table table-bordered'>";
-							echo"<thead>";
-							echo"<tr>";
-							echo"<th scope='col'>Street Address</th>";
-							echo"<th scope='col'>City</th>";
-							echo"<th scope='col'>State</th>";
-							echo"<th scope='col'>Zipcode</th>";
-							echo"</tr>";
-							echo"</thead>";
-							echo"<tbody>";
-							echo "<tr>";
-							echo "<td>{$record['p_street']}</td>";
-							echo "<td>{$record['p_city']}</td>";
-							echo "<td>{$record['p_state']}</td>";
-							echo "<td>{$record['p_zipcode']}</td>";
-							echo"</tbody>";
-							echo"</table>";
-							echo"</div>";
-							echo"</div>";
-						}
-					} else {
-						echo "<p>No patients.</p>";
-					}
-					?>
-					
-					
+					<div class="card-body">
+						<p class="card-text">
+							<form>
+								<div class="form-group row">
+									<div class="col">
+										<table class="table table-bordered table-sm">
+											<thead>
+												<tr>
+													<th scope='col'>Patient ID</th>
+													<th scope='col'>Patient Name</th>
+													<th scope='col'>Email</th>
+													<th scope='col'>Phone</th>
+													<th scope='col'>Address</th>
+													<th scope='col'>Actions</th>
+												</tr>
+											</thead>
 
 
 
-				</div>
+											<?php
+											if ($records) {
+												foreach($records as $record) {
+													echo "<tbody>";
+													echo "<tr>";
+													echo "<td>{$record['patient_id']}</td>";
+													echo "<td>{$record['patient_fname']} {$record['patient_lname']}</td>";
+													echo "<td>{$record['p_email']}</td>";
+													echo "<td>{$record['p_phone']}</td>";
+													echo "<td>{$record['p_street']}, {$record['p_city']}, {$record['p_state']}, {$record['p_zipcode']}</td>";
+													echo"<td><button type='button' class='btn btn-primary btn-sm'>Edit</button><button type='button' class='btn btn-primary btn-sm'>Delete</button></td>";
+													echo "</tr>";
+													echo "</tbody>";
 
-			</div>
-		</div>
-	</div>
+
+												}
+
+											} else {
+												echo "<p>something is not working!</p>";
+											}
+											?>
+										</table>
+									</div>
+								</div>
+							</form>
+						</p>
+					</div>
+									
 
 
-	<!-- Optional JavaScript; choose one of the two! -->
+					<!-- Optional JavaScript; choose one of the two! -->
 
-	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+					<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+					<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+					<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-	-->
-</body>
-</html>
+					-->
+				</body>
+				</html>

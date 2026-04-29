@@ -14,28 +14,30 @@
 	<title>Manage Schedules</title>
 </head>
 <?php
-	require_once("dbhelper.php");
-	session_start();
+require_once("dbhelper.php");
+session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
-		header("Location: index.php");
-	}
+if(!isset($_SESSION['aEmail']) OR !isset($_GET['adminID'])) {
+	header("Location: index.php");
+}
 
+$aID = $_GET['adminID'];
+
+$query = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id";
+$records = getRows($query);
+
+$query1 = "SELECT * FROM ServiceDetails";
+$records1 = getRows($query1);
+
+$query2 = "SELECT * FROM Patients";
+$records2 = getRows($query2);
+
+$query3 = "SELECT * FROM Therapists";
+$records3 = getRows($query3);
 
 ?>
 <body>
 	<?php require_once('navbar.php');
-
-	$query = "SELECT * FROM AppointmentDetails;";
-	$query1 = "SELECT * FROM Patients;";
-	$query2 = "SELECT * FROM Therapists;";
-	$query3 = "SELECT * FROM ServiceDetails;";
-
-
-	$records = getRows($query);
-	$records1 = getRows($query1);
-	$records2 = getRows($query2);
-	$records3 = getRows($query3);
 
 
 	?>
@@ -78,9 +80,9 @@
 														echo"<td>{$record['app_start']}</td>";
 														echo"<td>{$record['app_end']}</td>";
 														echo"<td>{$record['appointment_date']}</td>";
-														echo"<td>{$record['patient_id']}</td>";
-														echo"<td>{$record['therapist_id']}</td>";
-														echo"<td>{$record['service_id']}</td>";
+														echo"<td>{$record['patient_fname']}</td>";
+														echo"<td>{$record['therapist_fname']}</td>";
+														echo"<td>{$record['service_name']}</td>";
 														echo"<td>{$record['status']}</td>";
 														echo"<td><button type='button' class='btn btn-primary btn-sm'>Edit</button><button type='button' class='btn btn-primary btn-sm'>Cancel</button></td>";
 														echo"</tr>";
@@ -90,60 +92,7 @@
 													echo "<p>No scheduled appointmnents found.</p>";
 												}
 												?>
-													<td>2:30PM - 4:00PM</td>
-													<td>April 9th, 2026</td>
-													<td>Antonio Miitopia</td>
-													<td>
-														<select class="form-control">
-															<option>Jose Pancham</option>
-															<option>Min Yoongi</option>
-															<option>Kang Taehyun</option>
-														</select>
-													</td>
-													<td>Individual Counseling</td>
-													<td>Scheduled</td>
-													<td>
-														<button type="button" class="btn btn-primary btn-sm">Edit</button>
-														<button type="button" class="btn btn-primary btn-sm">Cancel</button>
-													</td>
-												</tr>
-												<tr>
-													<td>2:30PM - 4:00PM</td>
-													<td>April 9th, 2026</td>
-													<td>Antonio Miitopia</td>
-													<td>
-														<select class="form-control">
-															<option>Jose Pancham</option>
-															<option>Min Yoongi</option>
-															<option>Kang Taehyun</option>
-														</select>
-													</td>
-													<td>Individual Counseling</td>
-													<td>Scheduled</td>
-													<td>
-														<button type="button" class="btn btn-primary btn-sm">Edit</button>
-														<button type="button" class="btn btn-primary btn-sm">Cancel</button>
-													</td>
-												</tr>
-												<tr>
-													<td>2:30PM - 4:00PM</td>
-													<td>April 9th, 2026</td>
-													<td>Antonio Miitopia</td>
-													<td>
-														<select class="form-control">
-															<option>Jose Pancham</option>
-															<option>Min Yoongi</option>
-															<option>Kang Taehyun</option>
-														</select>
-													</td>
-													<td>Individual Counseling</td>
-													<td>Scheduled</td>
-													<td>
-														<button type="button" class="btn btn-primary btn-sm">Edit</button>
-														<button type="button" class="btn btn-primary btn-sm">Cancel</button>
-													</td>
-												</tr>
-											</tbody>
+											</tbody>	
 										</table>
 									</div>
 								</div>
@@ -184,11 +133,11 @@
 									<label for="inputState">Patient Name</label>
 									
 									<?php 
-									echo "<select  id='inputState' class='form-control' name='schPName'>";
-									foreach($records1 as $record1) {
-										$pID = $record1['patient_id'];
-										$pFName = $record1['patient_fname'];
-										$pLName = $record1['patient_lname'];
+									echo "<select id='inputState' class='form-control' name='schPName'>";
+									foreach($records2 as $record2) {
+										$pID = $record2['patient_id'];
+										$pFName = $record2['patient_fname'];
+										$pLName = $record2['patient_lname'];
 
 										echo"<option value='".$pID."'>".$pFName." ".$pLName."</option>";
 									}
@@ -200,10 +149,10 @@
 									<label for="inputState">Therapist Name</label>
 									<?php 
 									echo "<select id='inputState' class='form-control' name='schTName'>";
-									foreach($records2 as $record2) {
-										$tID = $record2['therapist_id'];
-										$tFName = $record2['therapist_fname'];
-										$tLName = $record2['therapist_lname'];
+									foreach($records3 as $record3) {
+										$tID = $record3['therapist_id'];
+										$tFName = $record3['therapist_fname'];
+										$tLName = $record3['therapist_lname'];
 
 										echo"<option value='".$tID."'>".$tFName." ".$tLName."</option>";
 									}
@@ -214,11 +163,11 @@
 									<label for="inputState">Specialty</label>
 									<?php 
 									echo "<select id='inputState' class='form-control' name='schTSpecial'>";
-									foreach($records3 as $record3) {
-										$tSpecial = $record3['service_name'];
-										$tID = $record3['service_id'];
+									foreach($records1 as $record1) {
+										$sSpecial = $record1['service_name'];
+										$sID = $record1['service_id'];
 
-										echo"<option value='".$tID."'>".$tSpecial."</option>";
+										echo"<option value='".$sID."'>".$sSpecial."</option>";
 									}
 									echo "</select>";
 									?>
@@ -231,29 +180,31 @@
 						</form>
 
 						<?php
-							if(isset($_POST['add-app'])) {
+						if(isset($_POST['add-app'])) {
 
-								$scStart = $_POST['schStart'];
-								$scEnd = $_POST['schEnd'];
-								$scDate = $_POST['schDate'];
-								$scP = $_POST['schPName'];
-								$scT = $_POST['schTName'];
-								$scSpec = $_POST['schTSpecial'];
-								$scStat = $_POST['schStatus'];
+							$scStart = $_POST['schStart'];
+							$scEnd = $_POST['schEnd'];
+							$scDate = $_POST['schDate'];
+							$scP = $_POST['schPName'];
+							$scT = $_POST['schTName'];
+							$scSpec = $_POST['schTSpecial'];
+							$scStat = $_POST['schStatus'];
 
 
-								$queryform = "INSERT INTO AppointmentDetails (app_start, app_end, appointment_date, patient_id, therapist_id, service_id, status) VALUES ('{$scStart}','{$scEnd}','{$scDate}','{$scP}','{$scT}','{$scSpec}','{$scStat}');";
+							$queryform = "INSERT INTO AppointmentDetails (app_start, app_end, appointment_date, patient_id, therapist_id, service_id, status) VALUES ('{$scStart}','{$scEnd}','{$scDate}','{$scP}','{$scT}','{$scSpec}','{$scStat}');";
 
-								runQuery($queryform);
+							runQuery($queryform);
 
-								echo "<p>Successfully added new appointment.</p>";
-							}
+							header("Location: manage-schedule.php?adminID='{$aID}'");
+
+							echo "<p>Successfully added new appointment.</p>";
+						}
 						?>
 
 					</div>
 				</div>
 
-							
+
 				
 			</div>
 		</div>

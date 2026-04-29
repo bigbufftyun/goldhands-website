@@ -15,21 +15,19 @@
 </head>
 <?php
 require_once("dbhelper.php");
+require_once("filehelper.php");
 session_start();
 
-if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+if(!isset($_SESSION['aEmail']) OR !isset($_GET['editService'])) {
 	header("Location: index.php");
 }
-
 
 ?>
 <body>
 	<?php require_once('navbar.php'); 
 
 	$query = "SELECT * FROM ServiceDetails;";
-
-	$records = getRows($query)
-
+	$records = getRows($query);
 
 	?>
 	
@@ -55,6 +53,7 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 										<table class="table table-bordered table-sm">
 											<thead>
 												<tr>
+													<th>Service Image</th>
 													<th>Service Name</th>
 													<th>Description</th>
 													<th>Duration</th>
@@ -64,24 +63,25 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 												</tr>
 											</thead>
 											<tbody>
-											<?php 
-											if ($records) {
-												foreach($records as $record) {
-													echo"<tr>";
-													echo"<td>{$record['service_name']}</td>";
-													echo"<td>{$record['description']}</td>";
-													echo"<td>{$record['duration_minutes']}</td>";
-													echo"<td>{$record['base_price']}</td>";
-													echo"<td>{$record['service_active']}";
-													echo"<td><button type='button' class='btn btn-primary btn-sm'>Edit</button><button type='button' class='btn btn-primary btn-sm'>Delete</button></td>";
-													echo"</tr>";
+												<?php 
+												if ($records) {
+													foreach($records as $record) {
+														echo"<tr>";
+														echo"<td><a href='{$record['img_url']}'></td>";
+														echo"<td>{$record['service_name']}</td>";
+														echo"<td>{$record['description']}</td>";
+														echo"<td>{$record['duration_minutes']}</td>";
+														echo"<td>{$record['base_price']}</td>";
+														echo"<td>{$record['service_active']}";
+														echo"<td><button type='button' class='btn btn-primary btn-sm'>Edit</button><button type='button' class='btn btn-primary btn-sm'>Delete</button></td>";
+														echo"</tr>";
 
-													
+
+													}
+												} else {
+													echo "<p>No services found.</p>";
 												}
-											} else {
-												echo "<p>No services found.</p>";
-											}
-											?>
+												?>
 											</tbody>
 										</table>
 									</div>
@@ -101,7 +101,7 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 
 				<div class="collapse" id="collapseExample">
 					<div class="card card-body">
-						<form action="manage-service.php" method="POST">
+						<form action="manage-service.php" method="POST" enctype="multipart/form-data">
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="inputEmail4">Service Name</label>
@@ -115,7 +115,7 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-3">
 									<label for="inputEmail4">Price</label>
 									<div class="input-group mb-3">
 										<div class="input-group-prepend">
@@ -124,7 +124,7 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 										<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="00.00" name='sPrice'>
 									</div>
 								</div>
-								<div class="form-group col-md-5">
+								<div class="form-group col-md-3">
 									<label for="inputState">Duration (minutes)</label>
 									<select id="inputState" class="form-control" name='sDuration'>
 										<option selected value="30">30</option>
@@ -140,26 +140,35 @@ if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 										<option selected value="Active">Active</option>
 									</select>
 								</div>
+								<div class="form-group col-md-3">
+									<label for="inputPassword4">Upload Image</label>
+									<input class="form-control" type="file" name="sImage">
+								</div>
 							</div>
-					
 							<button type="submit" name='add-service' class="btn btn-primary btn-sm">Submit</button>
-							
 						</form>
-						<?php
-							if(isset($_POST['add-service'])) {
+						<?php 
+						if(isset($_POST['add-service'])) {
+							$sImg = $_FILES['sImage'];
+							$imageURL = uploadFile($sImg, 'service-images');
 
-								$sName = $_POST['sName'];
-								$sDesc = $_POST['sDescription'];
-								$sPrice = $_POST['sPrice'];
-								$sDur = $_POST['sDuration'];
-								$sStat = $_POST['sStatus'];
+							$sName = $_POST['sName'];
+							$sDesc = $_POST['sDescription'];
+							$sPrice = $_POST['sPrice'];
+							$sDur = $_POST['sDuration'];
+							$sStat = $_POST['sStatus'];
 
 
-								$queryform = "INSERT INTO ServiceDetails (service_name, description, duration_minutes, base_price, service_active) VALUES ('{$sName}','{$sDesc}','{$sDur}','{$sPrice}','{$sStat}');";
+							runQuery("INSERT INTO ServiceDetails (service_name, description, duration_minutes, base_price, service_active, img_url) VALUES ('{$sName}','{$sDesc}','{$sDur}','{$sPrice}','{$sStat}','{$imageURL}')");
 
-								runQuery($queryform);
+							header("Location: manage-service.php?editService={$aID}");
 
-								echo "<p>Successfully added new service.</p>";
+							$success = TRUE;
+						} 
+						?>
+						<?php 
+						if(isset($success) AND $success) {
+							echo "<p>File uploaded successfully.</p>";
 							}
 						?>
 					</div>

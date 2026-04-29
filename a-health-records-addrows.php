@@ -1,10 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+	<!-- Custom External CSS -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<title>Health Records</title>
@@ -28,7 +32,7 @@ $records = getRows($query);
 
 	<div class="container-fluid">
 		<div class="row">
-			<?php require_once("patient_nav.php"); ?>
+			<?php require_once("patient_nav.php")?>
 
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
@@ -43,14 +47,14 @@ $records = getRows($query);
 					</div>
 
 					<div class="card-body">
-						<table class="table table-bordered table-sm">
+						<table class="table table-bordered">
 							<thead>
 								<tr>
 									<th>First</th>
 									<th>Last</th>
 									<th>Email</th>
 									<th>Phone</th>
-									<th>Street Address</th>
+									<th>Street</th>
 									<th>City</th>
 									<th>State</th>
 									<th>Zipcode</th>
@@ -63,6 +67,7 @@ $records = getRows($query);
 								if ($records) {
 									foreach($records as $record) {
 										echo "<tr>";
+
 										echo "<td>{$record['patient_fname']}</td>";
 										echo "<td>{$record['patient_lname']}</td>";
 										echo "<td>{$record['p_email']}</td>";
@@ -72,10 +77,11 @@ $records = getRows($query);
 										echo "<td>{$record['p_state']}</td>";
 										echo "<td>{$record['p_zipcode']}</td>";
 
+										// ✅ DYNAMIC BUTTONS
 										echo "<td>
 											<a href='p-profile-settings.php?editPID={$record['patient_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 
-											<a href='delete-patient.php?patientID={$record['patient_id']}' 
+											<a href='delete-patient.php?patientID={$record['patient_id']}'
 											   class='btn btn-warning btn-sm'
 											   onclick=\"return confirm('Are you sure you want to delete this patient?');\">
 											   DELETE
@@ -91,13 +97,17 @@ $records = getRows($query);
 							</tbody>
 						</table>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Optional JavaScript; choose one of the two! -->
+
+	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -14,11 +14,13 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+/* Admin security check */
+if(!isset($_SESSION['aEmail'])) {
 	header("Location: index.php");
 	exit();
 }
 
+/* Get patient ID from GET or POST */
 if(!isset($_GET['patientID']) && !isset($_POST['patientID'])) {
 	header("Location: a-health-records.php");
 	exit();
@@ -91,48 +93,48 @@ $patient = getOneRow($query);
 								<div class="form-group row">
 									<div class="col-6">
 										<label>First Name</label>
-										<input class="form-control" type="text" name="pFName" value="<?php echo $patient['patient_fname']; ?>">
+										<input class="form-control" type="text" name="pFName" value="<?php echo $patient['patient_fname']; ?>" required>
 									</div>
 
 									<div class="col-6">
 										<label>Last Name</label>
-										<input class="form-control" type="text" name="pLName" value="<?php echo $patient['patient_lname']; ?>">
+										<input class="form-control" type="text" name="pLName" value="<?php echo $patient['patient_lname']; ?>" required>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<div class="col-6">
 										<label>Email</label>
-										<input class="form-control" type="text" name="pEmail" value="<?php echo $patient['p_email']; ?>">
+										<input class="form-control" type="email" name="pEmail" value="<?php echo $patient['p_email']; ?>" required>
 									</div>
 
 									<div class="col-6">
 										<label>Phone Number</label>
-										<input class="form-control" type="text" name="pPhone" value="<?php echo $patient['p_phone']; ?>">
+										<input class="form-control" type="text" name="pPhone" value="<?php echo $patient['p_phone']; ?>" required>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<div class="col-8">
 										<label>Street Address</label>
-										<input class="form-control" type="text" name="pStreet" value="<?php echo $patient['p_street']; ?>">
+										<input class="form-control" type="text" name="pStreet" value="<?php echo $patient['p_street']; ?>" required>
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<div class="col-4">
 										<label>City</label>
-										<input class="form-control" type="text" name="pCity" value="<?php echo $patient['p_city']; ?>">
+										<input class="form-control" type="text" name="pCity" value="<?php echo $patient['p_city']; ?>" required>
 									</div>
 
 									<div class="col-4">
 										<label>State</label>
-										<input class="form-control" type="text" name="pState" value="<?php echo $patient['p_state']; ?>">
+										<input class="form-control" type="text" name="pState" value="<?php echo $patient['p_state']; ?>" required>
 									</div>
 
 									<div class="col-4">
 										<label>Zipcode</label>
-										<input class="form-control" type="text" name="pZipcode" value="<?php echo $patient['p_zipcode']; ?>">
+										<input class="form-control" type="text" name="pZipcode" value="<?php echo $patient['p_zipcode']; ?>" required>
 									</div>
 								</div>
 

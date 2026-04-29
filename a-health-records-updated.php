@@ -79,7 +79,7 @@ $records = getRows($query);
 
 										// ✅ DYNAMIC BUTTONS
 										echo "<td>
-											<a href='p-profile-settings.php?editPID={$record['patient_id']}' class='btn btn-primary btn-sm'>EDIT</a>
+											<a href='admin-edit-patient.php?patientID={$record['patient_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 
 											<a href='delete-patient.php?patientID={$record['patient_id']}'
 											   class='btn btn-warning btn-sm'

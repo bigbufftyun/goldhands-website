@@ -17,38 +17,63 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['pEmail']) OR !isset($_GET['patientID'])) {
+	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 		header("Location: index.php");
 	}
 
-	$pID = $_GET['patientID'];
-	$query = "SELECT * FROM Patients WHERE patient_id = '{$pID}'";
-	$patient = getOneRow($query)
-
 
 ?>
-
 <body>
-	<?php require_once("navbar.php")?>
+<?php require_once('navbar.php');?>
+
 	<div class="container-fluid">
 		<div class="row">
 			<?php require_once("patient_nav.php")?>
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
-						<h1 class="display-4">
-						<?php echo "Hello ".$patient['patient_fname']." ".$patient['patient_lname']?>
-						</h1>
+						<h1 class="display-4">Welcome Beri.</h1>
 					</div>
 				</div>
-				<div class="card">
-					<div class="card-header">
-						Upcoming Appointments
-					</div>
-					<a href="#" class="list-group-item list-group-item-action">March 9, 2026 - Follow-Up Appointment</a>
-					<a href="#" class="list-group-item list-group-item-action">March 20, 2026 - One-on-One Session</a>
-					<a href="#" class="list-group-item list-group-item-action">March 26, 2026 - One-on-One Session</a>
+				<div class="card-header">
+						Today's Appointment Schedule
 				</div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Time</th>
+							<th scope="col">Patient Name</th>
+							<th scope="col">Therapist Name</th>
+							<th scope="col">Service</th>
+							<th scope="col">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>10:45AM</th>
+							<td>Antonio Miitopia</td>
+							<td>Jose Pancham</td>
+							<td>Follow-Up</td>
+							<td>Scheduled</td>
+						</tr>
+						<tr>
+							<td>2:30PM</th>
+							<td>June Kim</td>
+							<td>Min Yoongi</td>
+							<td>Follow-Up</td>
+							<td>Scheduled</td>
+						</tr>
+						<tr>
+							<td>3:15PM</th>
+							<td>Tyler Waters</td>
+							<td>Jose Pancham</td>
+							<td>Follow-Up</td>
+							<td>Scheduled</td>
+						</tr>
+					</tbody>
+				</table>
+
+
 			</div>
 		</div>
 	</div>

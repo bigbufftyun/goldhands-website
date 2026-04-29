@@ -27,18 +27,18 @@
 				echo $_SESSION['pEmail'];
 				?>
 				</a>
-				<a class="btn btn-primary" href="dashboard.php" role="button">Patient Dashboard</a>
+				<a class="btn btn-primary" href="dashboard.php?patientID=<?php echo $_SESSION['pID']; ?>" role="button">Patient Dashboard</a>
 			</form>
 		<?php } else if (isset($_SESSION['accessLevel']) AND $_SESSION['accessLevel'] == 2) { ?>
 			<form class="form-inline my-2 my-lg-0">
-				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Jose Pancham</a>
-				<a class="btn btn-primary btn-md" href="therapist-dashboard.php" role="button">Therapist Dashboard</a>
+				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo $_SESSION['tEmail'];?></a>
+				<a class="btn btn-primary btn-md" href="therapist-dashboard.php?therapistID=<?php echo $_SESSION['tID'];?>" role="button">Therapist Dashboard</a>
 			</form>
 
 		<?php } else if (isset($_SESSION['accessLevel']) AND $_SESSION['accessLevel'] == 3) { ?>
 			<form class="form-inline my-2 my-lg-0">
-				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Beri Gold</a>
-				<a class="btn btn-primary btn-md" href="admin-dashboard.php" role="button">Admin Dashboard</a>
+				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo $_SESSION['aEmail'];?></a>
+				<a class="btn btn-primary btn-md" href="admin-dashboard.php?adminID=<?php echo $_SESSION['aID'];?>" role="button">Admin Dashboard</a>
 			</form>
 		<?php } else { ?>
 			<form class="form-inline my-2 my-lg-0">

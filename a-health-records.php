@@ -11,44 +11,98 @@
 	<!-- Custom External CSS -->
 	<link rel="stylesheet" type="text/css" href=style.css>
 
-	<title>Dashboard</title>
+	<title>Health Records</title>
 </head>
 <?php
-	require_once("dbhelper.php");
-	session_start();
+require_once("dbhelper.php");
+session_start();
 
-	if(!isset($_SESSION['pEmail']) OR !isset($_GET['patientID'])) {
-		header("Location: index.php");
-	}
-
-	$pID = $_GET['patientID'];
-	$query = "SELECT * FROM Patients WHERE patient_id = '{$pID}'";
-	$patient = getOneRow($query)
+if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+	header("Location: index.php");
+}
 
 
 ?>
-
 <body>
-	<?php require_once("navbar.php")?>
+	<?php require_once('navbar.php');
+
+	$query = "SELECT * FROM Patients;";
+
+	$records = getRows($query)
+
+	?>
 	<div class="container-fluid">
 		<div class="row">
 			<?php require_once("patient_nav.php")?>
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
-						<h1 class="display-4">
-						<?php echo "Hello ".$patient['patient_fname']." ".$patient['patient_lname']?>
-						</h1>
+						<h1 class="display-4">Health Records</h1>
 					</div>
 				</div>
 				<div class="card">
 					<div class="card-header">
-						Upcoming Appointments
+						Current Patient Records
 					</div>
-					<a href="#" class="list-group-item list-group-item-action">March 9, 2026 - Follow-Up Appointment</a>
-					<a href="#" class="list-group-item list-group-item-action">March 20, 2026 - One-on-One Session</a>
-					<a href="#" class="list-group-item list-group-item-action">March 26, 2026 - One-on-One Session</a>
+					
+					
+					
+					
+					
+					<?php
+					if ($records) {
+						foreach($records as $record) {
+							echo"<div class='card'>";
+							echo"<div class='card-body'>";
+							echo"<table class='table table-bordered'>";
+							echo"<thead>";
+							echo"<tr>";
+							echo"<th scope='col'>First</th>";
+							echo"<th scope='col'>Last</th>";
+							echo"<th scope='col'>Email</th>";
+							echo"<th scope='col'>Phone</th>";
+							echo"</tr>";
+							echo"</thead>";
+							echo"<tbody>";
+							echo "<tr>";
+							echo "<td>{$record['patient_fname']}</td>";
+							echo "<td>{$record['patient_lname']}</td>";
+							echo "<td>{$record['p_email']}</td>";
+							echo "<td>{$record['p_phone']}</td>";
+							echo"</tbody>";
+							echo"</table>";
+
+							echo"<table class='table table-bordered'>";
+							echo"<thead>";
+							echo"<tr>";
+							echo"<th scope='col'>Street Address</th>";
+							echo"<th scope='col'>City</th>";
+							echo"<th scope='col'>State</th>";
+							echo"<th scope='col'>Zipcode</th>";
+							echo"</tr>";
+							echo"</thead>";
+							echo"<tbody>";
+							echo "<tr>";
+							echo "<td>{$record['p_street']}</td>";
+							echo "<td>{$record['p_city']}</td>";
+							echo "<td>{$record['p_state']}</td>";
+							echo "<td>{$record['p_zipcode']}</td>";
+							echo"</tbody>";
+							echo"</table>";
+							echo"</div>";
+							echo"</div>";
+						}
+					} else {
+						echo "<p>No patients.</p>";
+					}
+					?>
+					
+					
+
+
+
 				</div>
+
 			</div>
 		</div>
 	</div>

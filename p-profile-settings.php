@@ -17,13 +17,18 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] > 1) {
+	if(!isset($_SESSION['pEmail']) OR !isset($_GET['editPID'])) {
 		header("Location: index.php");
 	}
 
+	$editPID = $_GET['editPID'];
+	$query = "SELECT * FROM Patients WHERE patient_id = '{$editPID}'";
+	$patient = getOneRow($query)
+
+
 ?>
 <body>
-	<?php require_once("navbar.php")?>
+	<?php require_once("navbar.php");?>
 	
 	<div class="container-fluid">
 		<div class="row">
@@ -40,121 +45,63 @@
 					</div>
 					<div class="card-body">
 						<p class="card-text">
-							<form>
+						<?php 
+							if($patient) {
+						?>
+							<form action='process-edit-patient.php' method='POST'>
 								<div class="form-group row">
 									<div class="col-6">
 										<label for="inputState">First Name</label>
-										<input class="form-control" type="text" placeholder="Antonio" readonly>
+										<input class="form-control" type="text" name="pFName" value="<?php echo $patient['patient_fname']; ?>">
 									</div>
 									<div class="col-6">
 										<label for="inputState">Last Name</label>
-										<input class="form-control" type="text" placeholder="Miitopia" readonly>
+										<input class="form-control" type="text" name="pLName" value="<?php echo $patient['patient_lname']; ?>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-6">
 										<label for="inputState">Email</label>
-										<input class="form-control" type="text" placeholder="amii9@gmail.com" readonly>
+										<input class="form-control" type="text" name="pEmail" value="<?php echo $patient['p_email']; ?>">
 									</div>
 									<div class="col-6">
 										<label for="inputState">Phone Number</label>
-										<input class="form-control" type="text" placeholder="(329) 354-5492" readonly>
+										<input class="form-control" type="number" max="999999999" name="pPhone" value="<?php echo $patient['p_phone']; ?>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-8">
 										<label for="inputState">Street Address</label>
-										<input class="form-control" type="text" placeholder="324 Bundt Ave" readonly>
+										<input class="form-control" type="text" name="pStreet" value="<?php echo $patient['p_street']; ?>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-4">
 										<label for="inputState">City</label>
-										<input class="form-control" type="text" placeholder="Ginko City" readonly>
+										<input class="form-control" type="text" name="pCity" value="<?php echo $patient['p_city']; ?>">
 									</div>
 									<div class="col-4">
 										<label for="inputState">State</label>
-										<input class="form-control" type="text" placeholder="Washington" readonly>
+										<input class="form-control" type="text" name="pState" value="<?php echo $patient['p_state']; ?>">
 									</div>
 									<div class="col-4">
 										<label for="inputState">Zipcode</label>
-										<input class="form-control" type="text" placeholder="32181" readonly>
+										<input class="form-control" type="text" name="pZipcode" value="<?php echo $patient['p_zipcode']; ?>">
 									</div>
 								</div>
-
+								<button class="btn btn-primary btn-sm" name="edit-pinfo" type="submit" value="<?php echo $editPID; ?>">Submit Profile Changes</button>
 							</form>
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profile-edit">
-								Edit Profile Information
-							</button>
-
-							<!-- Modal -->
-							<div class="modal fade" id="profile-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Edit Profile Information</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form>
-												<div class="form-row">
-													<div class="form-group col-md-6">
-														<label for="inputEmail4">First Name</label>
-														<input type="email" class="form-control" id="inputFirstName">
-													</div>
-													<div class="form-group col-md-6">
-														<label for="inputPassword4">Last Name</label>
-														<input type="password" class="form-control" id="inputLastName">
-													</div>
-												</div>
-												<div class="form-row">
-													<div class="form-group col-md-6">
-														<label for="inputEmail4">Email</label>
-														<input type="email" class="form-control" id="inputEmail4">
-													</div>
-													<div class="form-group col-md-6">
-														<label for="inputPassword4">Password</label>
-														<input type="password" class="form-control" id="inputPassword4">
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="inputAddress">Address</label>
-													<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-												</div>
-												<div class="form-row">
-													<div class="form-group col-md-6">
-														<label for="inputCity">City</label>
-														<input type="text" class="form-control" id="inputCity">
-													</div>
-													<div class="form-group col-md-4">
-														<label for="inputState">State</label>
-														<select id="inputState" class="form-control">
-															<option selected>Choose...</option>
-															<option>...</option>
-														</select>
-													</div>
-													<div class="form-group col-md-2">
-														<label for="inputZip">Zip</label>
-														<input type="text" class="form-control" id="inputZip">
-													</div>
-												</div>
-											</form>
-
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Save changes</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
+							<?php
+								} else {
+									echo "<p>Invalid patient ID, please try again.</p>";
+								}
+							?>
 						</p>
 					</div>
 				</div>
+
+				
+
 			</div>
 		</div>
 	</div>

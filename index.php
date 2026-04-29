@@ -8,6 +8,8 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 	<!-- Custom External CSS -->
 	<link rel="stylesheet" type="text/css" href=style.css>
 
@@ -21,7 +23,7 @@
 
 	<?php if(isset($_SESSION['accessLevel']) AND $_SESSION['accessLevel'] == 1) { ?>
 
-		<p>You are currently logged in as a patient with the email <?php echo $_SESSION['pEmail']; ?></p>
+		<p>You are currently logged in as a patient with the email <?php echo $_SESSION['pID']; ?></p>
 
 	<?php } else { ?>
 		<p>You are not logged in.</p>

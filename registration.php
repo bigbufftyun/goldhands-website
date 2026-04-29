@@ -41,7 +41,7 @@ if(isset($_SESSION['pEmail'])) {
 					</div>
 					<div class="form-group">
 						<label for="inputPassword">Password</label>
-						<input type="text" class="form-control" id="inputPassword" name="pPassword">
+						<input type="password" class="form-control" id="inputPassword" name="pPassword">
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
@@ -103,7 +103,7 @@ if(isset($_SESSION['pEmail'])) {
 
 						runQuery($query);
 
-						echo "<p>Added query</p>";
+						echo "<p>Successfully created an account.</p>";
 					}
 				?>
 			</div>

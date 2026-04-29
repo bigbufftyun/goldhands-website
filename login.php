@@ -25,7 +25,8 @@
 		$patientEmail = $_POST['pEmail'];
 		$patientPassword = $_POST['pPassword'];
 
-		$query = "SELECT p_email, p_password FROM Patients WHERE p_email = '{$patientEmail}'";
+
+		$query = "SELECT * FROM Patients WHERE p_email = '{$patientEmail}'";
 
 		$record = getOneRow($query);
 
@@ -33,14 +34,59 @@
 
 			$_SESSION['pEmail'] = $patientEmail;
 			$_SESSION['accessLevel'] = 1;
+			$_SESSION['pID'] = $record['patient_id'];
 
-
-			header('Location: dashboard.php');
+			header('Location: dashboard.php?patientID='.$_SESSION['pID']);
 		} else {
 
 			echo "<p>did not log in</p>";
 		}
 	}
+
+	else if(isset($_POST['tsubmit'])) {
+		$therapistEmail = $_POST['tEmail'];
+		$therapistPassword = $_POST['tPassword'];
+
+		$query = "SELECT * FROM Therapists WHERE t_email = '{$therapistEmail}'";
+
+		$record = getOneRow($query);
+
+		if($record['t_email'] == $therapistEmail AND password_verify($therapistPassword, $record['t_password'])) {
+
+			$_SESSION['tEmail'] = $therapistEmail;
+			$_SESSION['accessLevel'] = 2;
+			$_SESSION['tID'] = $record['therapist_id'];
+
+
+			header('Location: therapist-dashboard.php?therapistID='.$_SESSION['tID']);
+		} else {
+
+			echo "<p>did not log in</p>";
+		}
+	}
+
+	else if(isset($_POST['asubmit'])) {
+		$adminEmail = $_POST['aEmail'];
+		$adminPassword = $_POST['aPassword'];
+
+		$query = "SELECT * FROM Admin WHERE a_email = '{$adminEmail}'";
+
+		$record = getOneRow($query);
+
+		if($record['a_email'] == $adminEmail AND password_verify($adminPassword, $record['a_password'])) {
+
+			$_SESSION['aEmail'] = $adminEmail;
+			$_SESSION['accessLevel'] = 3;
+			$_SESSION['aID'] = $record['admin_id'];
+
+
+			header('Location: admin-dashboard.php?adminID='.$_SESSION['aID']);
+		} else {
+
+			echo "<p>did not log in</p>";
+		}
+	}
+
 ?>
 
 <body>
@@ -85,43 +131,43 @@
 								</form>
 							</div>
 							<div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-								<form>
+								<form action="login.php" method="POST">
 									<div class="form-group row">
 										<label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
 										<div class="col-sm-9">
-											<input type="email" class="form-control" id="inputEmailT">
+											<input type="email" class="form-control" id="inputEmailT" name="tEmail">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
 										<div class="col-sm-9">
-											<input type="password" class="form-control" id="inputPasswordT">
+											<input type="password" class="form-control" id="inputPasswordT" name="tPassword">
 										</div>
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-10">
-											<a class="btn btn-primary" href="therapist-dashboard.php" role="button">Sign in</a>
+											<button type="submit" name='tsubmit' class="btn btn-primary">Sign In</button>
 										</div>
 									</div>
 								</form>
 							</div>
 							<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-								<form>
+								<form action="login.php" method="POST">
 									<div class="form-group row">
 										<label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
 										<div class="col-sm-9">
-											<input type="email" class="form-control" id="inputEmailA">
+											<input type="email" class="form-control" id="inputEmailA" name="aEmail">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
 										<div class="col-sm-9">
-											<input type="password" class="form-control" id="inputPasswordA">
+											<input type="password" class="form-control" id="inputPasswordA" name="aPassword">
 										</div>
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-10">
-											<a class="btn btn-primary" href="admin-dashboard.php" role="button">Sign in</a>
+											<button type="submit" name='asubmit' class="btn btn-primary" name="asubmit">Sign In</button>
 										</div>
 									</div>
 								</form>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+	<!-- Custom External CSS -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>Edit Patient</title>
+</head>
+
+<?php
+require_once("dbhelper.php");
+session_start();
+
+if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3 OR !isset($_GET['patientID'])) {
+	header("Location: index.php");
+	exit();
+}
+
+$patientID = $_GET['patientID'];
+$query = "SELECT * FROM Patients WHERE patient_id = '{$patientID}'";
+$patient = getOneRow($query);
+?>
+
+<body>
+	<?php require_once('navbar.php'); ?>
+
+	<div class="container-fluid">
+		<div class="row">
+			<?php require_once("patient_nav.php")?>
+
+			<div class="col-10">
+				<div class="jumbotron jumbotron-fluid">
+					<div class="container">
+						<h1 class="display-4">Edit Patient</h1>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-header">
+						Patient Account Information
+					</div>
+
+					<div class="card-body">
+						<?php if($patient) { ?>
+							<form action="admin-process-edit-patient.php" method="POST">
+
+								<input type="hidden" name="patientID" value="<?php echo $patient['patient_id']; ?>">
+
+								<div class="form-group row">
+									<div class="col-6">
+										<label>First Name</label>
+										<input class="form-control" type="text" name="pFName" value="<?php echo $patient['patient_fname']; ?>">
+									</div>
+
+									<div class="col-6">
+										<label>Last Name</label>
+										<input class="form-control" type="text" name="pLName" value="<?php echo $patient['patient_lname']; ?>">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<div class="col-6">
+										<label>Email</label>
+										<input class="form-control" type="text" name="pEmail" value="<?php echo $patient['p_email']; ?>">
+									</div>
+
+									<div class="col-6">
+										<label>Phone Number</label>
+										<input class="form-control" type="text" name="pPhone" value="<?php echo $patient['p_phone']; ?>">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<div class="col-8">
+										<label>Street Address</label>
+										<input class="form-control" type="text" name="pStreet" value="<?php echo $patient['p_street']; ?>">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<div class="col-4">
+										<label>City</label>
+										<input class="form-control" type="text" name="pCity" value="<?php echo $patient['p_city']; ?>">
+									</div>
+
+									<div class="col-4">
+										<label>State</label>
+										<input class="form-control" type="text" name="pState" value="<?php echo $patient['p_state']; ?>">
+									</div>
+
+									<div class="col-4">
+										<label>Zipcode</label>
+										<input class="form-control" type="text" name="pZipcode" value="<?php echo $patient['p_zipcode']; ?>">
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-primary">Save Changes</button>
+								<a href="a-health-records.php" class="btn btn-secondary">Cancel</a>
+
+							</form>
+						<?php } else { ?>
+							<p>Patient not found.</p>
+						<?php } ?>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Optional JavaScript; choose one of the two! -->
+
+	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/3oU9A1qF6pczW2Z4NfEXwkZjy7I9OyaMvB4ZqQp" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -18,16 +18,23 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['aEmail']) OR !isset($_GET['adminID'])) {
+/* ✅ Admin session check (MATCHES YOUR WORKING EDIT PAGE) */
+if(!isset($_SESSION['aEmail'])) {
 	header("Location: index.php");
 	exit();
 }
 
-$aID = $_GET['adminID'];
+/* ✅ Safe adminID handling */
+$aID = 1;
+if(isset($_GET['adminID'])) {
+	$aID = $_GET['adminID'];
+}
 
+/* Get therapists */
 $query = "SELECT * FROM Therapists;";
 $records = getRows($query);
 
+/* Get services for dropdown */
 $query1 = "SELECT * FROM ServiceDetails";
 $records1 = getRows($query1);
 ?>
@@ -78,7 +85,7 @@ $records1 = getRows($query1);
 								echo "<td>{$record['t_email']}</td>";
 								echo "<td>{$record['t_phone']}</td>";
 
-								// ✅ DYNAMIC BUTTONS
+								/* ✅ DYNAMIC BUTTONS */
 								echo "<td>
 									<a href='edit-therapist.php?therapistID={$record['therapist_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 
@@ -113,29 +120,29 @@ $records1 = getRows($query1);
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>First Name</label>
-								<input type="text" class="form-control" name="tFName">
+								<input type="text" class="form-control" name="tFName" required>
 							</div>
 
 							<div class="form-group col-md-6">
 								<label>Last Name</label>
-								<input type="text" class="form-control" name="tLName">
+								<input type="text" class="form-control" name="tLName" required>
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group col-md-4">
 								<label>Email</label>
-								<input type="email" class="form-control" name="tEmail">
+								<input type="email" class="form-control" name="tEmail" required>
 							</div>
 
 							<div class="form-group col-md-4">
 								<label>Phone</label>
-								<input type="number" class="form-control" name="tPhone">
+								<input type="number" class="form-control" name="tPhone" required>
 							</div>
 
 							<div class="form-group col-md-4">
 								<label>Password</label>
-								<input type="password" class="form-control" name="tPassword">
+								<input type="password" class="form-control" name="tPassword" required>
 							</div>
 						</div>
 

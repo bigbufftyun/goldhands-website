@@ -18,13 +18,13 @@
 require_once("dbhelper.php");
 session_start();
 
-/* ✅ Admin session check (MATCHES YOUR WORKING EDIT PAGE) */
+/* Admin session check
 if(!isset($_SESSION['aEmail'])) {
 	header("Location: index.php");
 	exit();
 }
 
-/* ✅ Safe adminID handling */
+/* Safe adminID handling */
 $aID = 1;
 if(isset($_GET['adminID'])) {
 	$aID = $_GET['adminID'];
@@ -85,7 +85,7 @@ $records1 = getRows($query1);
 								echo "<td>{$record['t_email']}</td>";
 								echo "<td>{$record['t_phone']}</td>";
 
-								/* ✅ DYNAMIC BUTTONS */
+								/* DYNAMIC BUTTONS */
 								echo "<td>
 									<a href='edit-therapist.php?therapistID={$record['therapist_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 

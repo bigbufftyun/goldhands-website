@@ -77,7 +77,7 @@ $records = getRows($query);
 										echo "<td>{$record['p_state']}</td>";
 										echo "<td>{$record['p_zipcode']}</td>";
 
-										// ✅ DYNAMIC BUTTONS
+										// DYNAMIC BUTTONS
 										echo "<td>
 											<a href='admin-edit-patient.php?patientID={$record['patient_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 

@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
 	<!-- Custom External CSS -->
-	<link rel="stylesheet" type="text/css" href=style.css>
+	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<title>Manage Services</title>
 </head>
@@ -18,7 +18,7 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+if(!isset($_SESSION['aEmail'])) {
 	header("Location: index.php");
 	exit();
 }
@@ -47,62 +47,59 @@ $records = getRows($query);
 					</div>
 
 					<div class="card-body">
-						<p class="card-text">
-							<form>
-								<div class="form-group row">
-									<div class="col">
-										<table class="table table-bordered table-sm">
-											<thead>
-												<tr>
-													<th>Service Name</th>
-													<th>Description</th>
-													<th>Duration</th>
-													<th>Price</th>
-													<th>Status</th>
-													<th>Action</th>
-												</tr>
-											</thead>
+						<form>
+							<div class="form-group row">
+								<div class="col">
+									<table class="table table-bordered table-sm">
+										<thead>
+											<tr>
+												<th>Service Name</th>
+												<th>Description</th>
+												<th>Duration</th>
+												<th>Price</th>
+												<th>Status</th>
+												<th>Action</th>
+											</tr>
+										</thead>
 
-											<tbody>
-											<?php 
-											if ($records) {
-												foreach($records as $record) {
-													echo "<tr>";
-													echo "<td>{$record['service_name']}</td>";
-													echo "<td>{$record['description']}</td>";
-													echo "<td>{$record['duration_minutes']}</td>";
-													echo "<td>{$record['base_price']}</td>";
-													echo "<td>{$record['service_active']}</td>";
+										<tbody>
+										<?php 
+										if ($records) {
+											foreach($records as $record) {
+												echo "<tr>";
+												echo "<td>{$record['service_name']}</td>";
+												echo "<td>{$record['description']}</td>";
+												echo "<td>{$record['duration_minutes']}</td>";
+												echo "<td>{$record['base_price']}</td>";
+												echo "<td>{$record['service_active']}</td>";
 
-													echo "<td>
-														<a href='edit-service.php?serviceID={$record['service_id']}' class='btn btn-primary btn-sm'>EDIT</a>
+												echo "<td>
+													<a href='edit-service.php?serviceID={$record['service_id']}' class='btn btn-primary btn-sm'>EDIT</a>
 
-														<a href='delete-service.php?serviceID={$record['service_id']}'
-														   class='btn btn-warning btn-sm'
-														   onclick=\"return confirm('Are you sure you want to delete this service?');\">
-														   DELETE
-														</a>
-													</td>";
+													<a href='delete-service.php?serviceID={$record['service_id']}'
+													   class='btn btn-warning btn-sm'
+													   onclick=\"return confirm('Are you sure you want to delete this service?');\">
+													   DELETE
+													</a>
+												</td>";
 
-													echo "</tr>";
-												}
-											} else {
-												echo "<tr><td colspan='6'>No services found.</td></tr>";
+												echo "</tr>";
 											}
-											?>
-											</tbody>
-										</table>
-									</div>
+										} else {
+											echo "<tr><td colspan='6'>No services found.</td></tr>";
+										}
+										?>
+										</tbody>
+									</table>
 								</div>
+							</div>
 
-								<p>
-									<button class="btn btn-primary btn-sm float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-										Add Service
-									</button>
-								</p>
-
-							</form>
-						</p>
+							<p>
+								<button class="btn btn-primary btn-sm float-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+									Add Service
+								</button>
+							</p>
+						</form>
 					</div>
 				</div>
 
@@ -112,14 +109,14 @@ $records = getRows($query);
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="inputEmail4">Service Name</label>
-									<input type="text" class="form-control" id="inputFirstName" name='sName'>
+									<input type="text" class="form-control" id="inputFirstName" name="sName">
 								</div>
 							</div>
 
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="exampleFormControlTextarea1">Service Description</label>
-									<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name='sDescription'></textarea>
+									<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="sDescription"></textarea>
 								</div>
 							</div>
 
@@ -130,13 +127,13 @@ $records = getRows($query);
 										<div class="input-group-prepend">
 											<span class="input-group-text">$</span>
 										</div>
-										<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="00.00" name='sPrice'>
+										<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="00.00" name="sPrice">
 									</div>
 								</div>
 
 								<div class="form-group col-md-5">
 									<label for="inputState">Duration (minutes)</label>
-									<select id="inputState" class="form-control" name='sDuration'>
+									<select id="inputState" class="form-control" name="sDuration">
 										<option selected value="30">30</option>
 										<option value="45">45</option>
 										<option value="60">60</option>
@@ -147,13 +144,14 @@ $records = getRows($query);
 
 								<div class="form-group col-md-3">
 									<label for="inputPassword4">Status</label>
-									<select id="inputState" class="form-control" name='sStatus'>
+									<select id="inputState" class="form-control" name="sStatus">
 										<option selected value="Active">Active</option>
+										<option value="Inactive">Inactive</option>
 									</select>
 								</div>
 							</div>
 					
-							<button type="submit" name='add-service' class="btn btn-primary btn-sm">Submit</button>
+							<button type="submit" name="add-service" class="btn btn-primary btn-sm">Submit</button>
 						</form>
 
 						<?php

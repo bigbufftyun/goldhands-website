@@ -1,14 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-	<!-- Custom External CSS -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<title>Edit Patient</title>
@@ -18,12 +14,51 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3 OR !isset($_GET['patientID'])) {
+if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
 	header("Location: index.php");
 	exit();
 }
 
-$patientID = $_GET['patientID'];
+if(!isset($_GET['patientID']) && !isset($_POST['patientID'])) {
+	header("Location: a-health-records.php");
+	exit();
+}
+
+if(isset($_GET['patientID'])) {
+	$patientID = $_GET['patientID'];
+} else {
+	$patientID = $_POST['patientID'];
+}
+
+/* Save changes */
+if(isset($_POST['submit'])) {
+	$pFName = $_POST['pFName'];
+	$pLName = $_POST['pLName'];
+	$pEmail = $_POST['pEmail'];
+	$pPhone = $_POST['pPhone'];
+	$pStreet = $_POST['pStreet'];
+	$pCity = $_POST['pCity'];
+	$pState = $_POST['pState'];
+	$pZipcode = $_POST['pZipcode'];
+
+	$query = "UPDATE Patients
+			  SET patient_fname = '{$pFName}',
+				  patient_lname = '{$pLName}',
+				  p_email = '{$pEmail}',
+				  p_phone = '{$pPhone}',
+				  p_street = '{$pStreet}',
+				  p_city = '{$pCity}',
+				  p_state = '{$pState}',
+				  p_zipcode = '{$pZipcode}'
+			  WHERE patient_id = '{$patientID}'";
+
+	runQuery($query);
+
+	header("Location: a-health-records.php");
+	exit();
+}
+
+/* Pull patient info */
 $query = "SELECT * FROM Patients WHERE patient_id = '{$patientID}'";
 $patient = getOneRow($query);
 ?>
@@ -49,7 +84,7 @@ $patient = getOneRow($query);
 
 					<div class="card-body">
 						<?php if($patient) { ?>
-							<form action="admin-process-edit-patient.php" method="POST">
+							<form action="admin-edit-patient.php" method="POST">
 
 								<input type="hidden" name="patientID" value="<?php echo $patient['patient_id']; ?>">
 
@@ -101,7 +136,7 @@ $patient = getOneRow($query);
 									</div>
 								</div>
 
-								<button type="submit" class="btn btn-primary">Save Changes</button>
+								<button type="submit" name="submit" class="btn btn-primary">Save Changes</button>
 								<a href="a-health-records.php" class="btn btn-secondary">Cancel</a>
 
 							</form>
@@ -115,9 +150,6 @@ $patient = getOneRow($query);
 		</div>
 	</div>
 
-	<!-- Optional JavaScript; choose one of the two! -->
-
-	<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/3oU9A1qF6pczW2Z4NfEXwkZjy7I9OyaMvB4ZqQp" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 

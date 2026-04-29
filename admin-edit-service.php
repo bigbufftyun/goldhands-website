@@ -1,3 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<title>Edit Service</title>
+</head>
+
 <?php
 require_once("dbhelper.php");
 session_start();
@@ -43,18 +55,6 @@ $query = "SELECT * FROM ServiceDetails WHERE service_id = '{$serviceID}'";
 $service = getOneRow($query);
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
-
-	<title>Edit Service</title>
-</head>
-
 <body>
 	<?php require_once('navbar.php'); ?>
 
@@ -70,7 +70,9 @@ $service = getOneRow($query);
 				</div>
 
 				<div class="card">
-					<div class="card-header">Service Information</div>
+					<div class="card-header">
+						Service Information
+					</div>
 
 					<div class="card-body">
 						<?php if($service) { ?>
@@ -78,14 +80,18 @@ $service = getOneRow($query);
 
 								<input type="hidden" name="serviceID" value="<?php echo $service['service_id']; ?>">
 
-								<div class="form-group">
-									<label>Service Name</label>
-									<input class="form-control" type="text" name="sName" value="<?php echo $service['service_name']; ?>" required>
+								<div class="form-group row">
+									<div class="col-12">
+										<label>Service Name</label>
+										<input class="form-control" type="text" name="sName" value="<?php echo $service['service_name']; ?>" required>
+									</div>
 								</div>
 
-								<div class="form-group">
-									<label>Description</label>
-									<textarea class="form-control" name="sDescription" rows="5" required><?php echo $service['description']; ?></textarea>
+								<div class="form-group row">
+									<div class="col-12">
+										<label>Description</label>
+										<textarea class="form-control" name="sDescription" rows="5" required><?php echo $service['description']; ?></textarea>
+									</div>
 								</div>
 
 								<div class="form-group row">
@@ -110,6 +116,7 @@ $service = getOneRow($query);
 
 								<button type="submit" name="submit" class="btn btn-primary">Save Changes</button>
 								<a href="manage-service.php" class="btn btn-secondary">Cancel</a>
+
 							</form>
 						<?php } else { ?>
 							<p>Service not found.</p>
@@ -120,5 +127,9 @@ $service = getOneRow($query);
 			</div>
 		</div>
 	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

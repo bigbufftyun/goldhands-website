@@ -2,15 +2,11 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['aEmail'])) {
+if(!isset($_SESSION['aID'])) {
 	header("Location: index.php");
 	exit();
 }
 
-if(!isset($_GET['therapistID']) && !isset($_POST['therapistID'])) {
-	header("Location: manage-therapist.php?adminID=1");
-	exit();
-}
 
 if(isset($_GET['therapistID'])) {
 	$therapistID = $_GET['therapistID'];
@@ -31,17 +27,17 @@ if(isset($_POST['submit'])) {
 				  therapist_lname = '{$tLName}',
 				  t_email = '{$tEmail}',
 				  t_phone = '{$tPhone}',
-				  specialty = '{$tSpecialty}',
+				  service_id = '{$tSpecialty}',
 				  license_active = '{$tStatus}'
 			  WHERE therapist_id = '{$therapistID}'";
 
 	runQuery($query);
 
-	header("Location: manage-therapist.php?adminID=1");
+	header("Location: manage-therapist.php");
 	exit();
 }
 
-$query = "SELECT * FROM Therapists WHERE therapist_id = '{$therapistID}'";
+$query = "SELECT *, ServiceDetails.service_id, ServiceDetails.service_name FROM Therapists LEFT JOIN ServiceDetails ON ServiceDetails.service_id=Therapists.service_id WHERE therapist_id = '{$therapistID}'";
 $therapist = getOneRow($query);
 
 $services = getRows("SELECT * FROM ServiceDetails");
@@ -78,7 +74,7 @@ $services = getRows("SELECT * FROM ServiceDetails");
 
 					<div class="card-body">
 						<?php if($therapist) { ?>
-							<form action="edit-therapist.php" method="POST">
+							<form action="admin-edit-therapist.php" method="POST">
 
 								<input type="hidden" name="therapistID" value="<?php echo $therapist['therapist_id']; ?>">
 
@@ -108,12 +104,12 @@ $services = getRows("SELECT * FROM ServiceDetails");
 
 								<div class="form-group row">
 									<div class="col-6">
-										<label>Specialty</label>
+										<label>Service</label>
 										<select class="form-control" name="tSpecialty">
 											<?php
 											foreach($services as $service) {
 												$selected = "";
-												if($therapist['specialty'] == $service['service_id']) {
+												if($therapist['service_id'] == $service['service_id']) {
 													$selected = "selected";
 												}
 
@@ -133,7 +129,7 @@ $services = getRows("SELECT * FROM ServiceDetails");
 								</div>
 
 								<button type="submit" name="submit" class="btn btn-primary">Save Changes</button>
-								<a href="manage-therapist.php?adminID=1" class="btn btn-secondary">Cancel</a>
+								<a href="manage-therapist.php" class="btn btn-secondary">Cancel</a>
 							</form>
 						<?php } else { ?>
 							<p>Therapist not found.</p>

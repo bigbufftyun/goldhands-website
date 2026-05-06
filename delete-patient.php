@@ -3,7 +3,7 @@ require_once("dbhelper.php");
 session_start();
 
 // Security check (only admin can delete)
-if(!isset($_SESSION['accessLevel']) || $_SESSION['accessLevel'] != 3) {
+if(!isset($_SESSION['aID'])) {
     header("Location: index.php");
     exit();
 }
@@ -19,12 +19,12 @@ if(isset($_GET['patientID'])) {
     runQuery($query);
 
     // Redirect back after delete
-    header("Location: a-health-records.php");
+    header("Location: a-health-records.php?editService=".$_GET['aPatientRec']);
     exit();
 
 } else {
     // If no ID passed
-    header("Location: a-health-records.php");
+    header("Location: a-health-records.php?editService=".$_GET['aPatientRec']);
     exit();
 }
 ?>

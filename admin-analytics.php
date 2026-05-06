@@ -18,7 +18,7 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 3) {
+	if(!isset($_SESSION['aID'])) {
 		header("Location: index.php");
 	}
 
@@ -27,7 +27,6 @@
 	$totalTherapists = getOneRow("SELECT COUNT(*) AS total FROM Therapists");
 	$totalAppointments = getOneRow("SELECT COUNT(*) AS total FROM AppointmentDetails");
 	$totalServices = getOneRow("SELECT COUNT(*) AS total FROM ServiceDetails");
-	$totalNotes = getOneRow("SELECT COUNT(*) AS total FROM AppointmentNotes");
 
 	// RECENT APPOINTMENTS
 	$query = "
@@ -46,7 +45,7 @@
 	LEFT JOIN Patients ON AppointmentDetails.patient_id = Patients.patient_id
 	LEFT JOIN Therapists ON AppointmentDetails.therapist_id = Therapists.therapist_id
 	LEFT JOIN ServiceDetails ON AppointmentDetails.service_id = ServiceDetails.service_id
-	ORDER BY AppointmentDetails.appointment_id DESC
+	WHERE status = 'Completed' ORDER BY AppointmentDetails.appointment_date DESC
 	LIMIT 5
 	";
 
@@ -134,17 +133,6 @@
 
 				</div>
 
-				<div class="row">
-					<div class="col-md-3 mb-4">
-						<div class="card text-center">
-							<div class="card-body">
-								<h5 class="card-title">Notes</h5>
-								<h2><?php echo $totalNotes['total']; ?></h2>
-								<p class="card-text">Appointment notes</p>
-							</div>
-						</div>
-					</div>
-				</div>
 
 				<!-- APPOINTMENT STATUS BREAKDOWN -->
 				<div class="card-header">
@@ -212,13 +200,11 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th scope="col">Appointment ID</th>
+							<th scope="col">Date</th>
+							<th scope="col">Time</th>
 							<th scope="col">Patient</th>
 							<th scope="col">Therapist</th>
 							<th scope="col">Service</th>
-							<th scope="col">Date</th>
-							<th scope="col">Start</th>
-							<th scope="col">End</th>
 							<th scope="col">Status</th>
 						</tr>
 					</thead>
@@ -227,14 +213,16 @@
 						<?php
 						if($appointments) {
 							foreach($appointments as $appointment) {
+								$app_date = $appointment['appointment_date'];
+								$start_time = $appointment['app_start'];
+								$end_time = $appointment['app_end'];
+
 								echo "<tr>";
-								echo "<td>{$appointment['appointment_id']}</td>";
+								echo"<td>".date('F j, Y', strtotime($app_date))."</td>";
+								echo"<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
 								echo "<td>{$appointment['patient_fname']} {$appointment['patient_lname']}</td>";
 								echo "<td>{$appointment['therapist_fname']} {$appointment['therapist_lname']}</td>";
 								echo "<td>{$appointment['service_name']}</td>";
-								echo "<td>{$appointment['appointment_date']}</td>";
-								echo "<td>{$appointment['app_start']}</td>";
-								echo "<td>{$appointment['app_end']}</td>";
 								echo "<td>{$appointment['status']}</td>";
 								echo "</tr>";
 							}

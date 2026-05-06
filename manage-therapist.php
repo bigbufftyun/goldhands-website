@@ -18,20 +18,13 @@
 require_once("dbhelper.php");
 session_start();
 
-/* Admin session check
-if(!isset($_SESSION['aEmail'])) {
+if(!isset($_SESSION['aID'])) {
 	header("Location: index.php");
-	exit();
 }
 
-/* Safe adminID handling */
-$aID = 1;
-if(isset($_GET['adminID'])) {
-	$aID = $_GET['adminID'];
-}
 
 /* Get therapists */
-$query = "SELECT * FROM Therapists;";
+$query = "SELECT *, ServiceDetails.service_id, ServiceDetails.service_name FROM Therapists LEFT JOIN ServiceDetails ON ServiceDetails.service_id=Therapists.service_id;";
 $records = getRows($query);
 
 /* Get services for dropdown */
@@ -63,7 +56,7 @@ $records1 = getRows($query1);
 								<th>ID</th>
 								<th>First Name</th>
 								<th>Last Name</th>
-								<th>Specialty</th>
+								<th>Service</th>
 								<th>License</th>
 								<th>Email</th>
 								<th>Phone Number</th>
@@ -80,17 +73,18 @@ $records1 = getRows($query1);
 								echo "<td>{$record['therapist_id']}</td>";
 								echo "<td>{$record['therapist_fname']}</td>";
 								echo "<td>{$record['therapist_lname']}</td>";
-								echo "<td>{$record['specialty']}</td>";
+								echo "<td>{$record['service_name']}</td>";
 								echo "<td>{$record['license_active']}</td>";
 								echo "<td>{$record['t_email']}</td>";
 								echo "<td>{$record['t_phone']}</td>";
 
-								/* DYNAMIC BUTTONS */
 								echo "<td>
-									<a href='edit-therapist.php?therapistID={$record['therapist_id']}' class='btn btn-primary btn-sm'>EDIT</a>
+									<a href='admin-edit-therapist.php?therapistID={$record['therapist_id']}' class='btn btn-primary btn-sm'>EDIT</a>
+
+									
 
 									<a href='delete-therapist.php?therapistID={$record['therapist_id']}'
-									   class='btn btn-warning btn-sm'
+									   class='btn btn-primary btn-sm'
 									   onclick=\"return confirm('Are you sure you want to delete this therapist?');\">
 									   DELETE
 									</a>
@@ -105,18 +99,16 @@ $records1 = getRows($query1);
 						</tbody>
 					</table>
 
+
 					<button class="btn btn-primary btn-sm float-right" type="button" data-toggle="collapse" data-target="#collapseExample">
 						Add Therapist Account
 					</button>
 				</div>
 			</div>
 
-			<!-- ADD THERAPIST FORM -->
 			<div class="collapse" id="collapseExample">
 				<div class="card card-body">	
-
-					<form action="manage-therapist.php?adminID=<?php echo $aID; ?>" method="POST">
-
+					<form action="manage-therapist.php" method="POST">
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>First Name</label>
@@ -149,7 +141,6 @@ $records1 = getRows($query1);
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Specialty</label>
-
 								<select class="form-control" name="tService">
 									<?php
 									foreach($records1 as $record1) {
@@ -168,8 +159,7 @@ $records1 = getRows($query1);
 							</div>
 						</div>
 
-						<button type="submit" name="add-thera" class="btn btn-primary btn-sm float-right">Submit</button>
-
+						<button type="submit" name='add-thera' class="btn btn-primary btn-sm float-right">Submit</button>
 					</form>
 
 					<?php
@@ -185,14 +175,11 @@ $records1 = getRows($query1);
 
 						$hash = password_hash($tPass, PASSWORD_DEFAULT);
 
-						$qlog = "INSERT INTO Therapists 
-						(therapist_fname, therapist_lname, t_email, t_phone, specialty, license_active, t_password) 
-						VALUES ('$fName','$lName','$email','$phone','$service','$stat','$hash')";
+						$qlog = "INSERT INTO Therapists (therapist_fname, therapist_lname, t_email, t_phone, service_id, license_active, t_password) VALUES ('{$fName}','{$lName}','{$email}','{$phone}','{$service}','{$stat}','{$hash}')";
 
 						runQuery($qlog);
 
-						header("Location: manage-therapist.php?adminID={$aID}");
-						exit();
+						header("Location: manage-service.php");
 					}
 					?>
 				</div>

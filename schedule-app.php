@@ -14,12 +14,20 @@
 	<title>Schedule Appointment</title>
 </head>
 <?php
-	require_once("dbhelper.php");
-	session_start();
+require_once("dbhelper.php");
+session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] > 1) {
-		header("Location: index.php");
-	}
+if(!isset($_SESSION['pID'])) {
+	header("Location: index.php");
+}
+
+$pID = $_SESSION['pID'];
+
+
+$query1 = "SELECT * FROM ServiceDetails";
+$services = getRows($query1);
+
+
 
 ?>
 <body>
@@ -31,122 +39,63 @@
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
-						<h1 class="display-4">Schedule Appointment</h1>
+						<h1 class="display-4">Book an Appointment</h1>
 					</div>
 				</div>
-				<form>
+				<form action="schedule-app.php" method="POST">
 					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="inputState">Step 1: Select Service</label>
-							<select id="inputState" class="form-control">
-								<option selected>Choose...</option>
-								<option>Counseling</option>
-								<option>Psychiatric Rehabilitation</option>
-								<option>Group Therapy</option>
+						<div class="form-group col-md-4">
+							<label for="inputState">Select a Service</label>
+							<select id="inputState" class="form-control" name="service">
+								<?php
+								foreach($services as $service) {
+									$selected = "";
+									if($appointments['service_id'] == $service['service_id']) {
+										$selected = "selected";
+									}
+									echo "<option value='{$service['service_id']}' {$selected}>{$service['service_name']}</option>";
+								}
+								?>
 							</select>
 						</div>
-						<div class="form-group col-md-6">
-							<label for="inputState">Step 2: Select Therapist</label>
-							<select id="inputState" class="form-control">
-								<option selected>Choose...</option>
-								<option>Dr. Min</option>
-								<option>Dr. Kang</option>
-								<option>Dr. Pancham</option>
-							</select>
-						</div>
+						<button type="submit" name="find-app" class="btn btn-primary btn-sm" style="height: 30px; position: relative; top: 25px;">Find Appointments</button>
 					</div>
 
-					<div class="form-row">
-						<div class="form-group col-md-8">
-							<label for="exampleFormControlSelect2">Step 3: Select Date</label>
-							<select multiple class="form-control" id="exampleFormControlSelect2">
-								<option>April 9th, 2026</option>
-								<option>April 10th, 2026</option>
-								<option>April 13th, 2026</option>
-								<option>April 15th, 2026</option>
-								<option>April 16th, 2026</option>
-							</select>
-						</div>
-						<div class="col-md-4">
-							<table class="table table-bordered table-sm">
-								<thead>
-									<tr>
-										<th colspan="7">April 2026</th>
-									</tr>
-									<tr>
-										<th scope="col">Sun</th>
-										<th scope="col">Mon</th>
-										<th scope="col">Tue</th>
-										<th scope="col">Wed</th>
-										<th scope="col">Thur</th>
-										<th scope="col">Fri</th>
-										<th scope="col">Sat</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>29</td>
-										<td>30</td>
-										<td>31</td>
-										<td>1</td>
-										<td>2</td>
-										<td>3</td>
-										<td>4</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>6</td>
-										<td>7</td>
-										<td>8</td>
-										<td>9</td>
-										<td>10</td>
-										<td>11</td>
-									</tr>
-									<tr>
-										<td>12</td>
-										<td>13</td>
-										<td>14</td>
-										<td>15</td>
-										<td>16</td>
-										<td>17</td>
-										<td>18</td>
-									</tr>
-									<tr>
-										<td>19</td>
-										<td>20</td>
-										<td>21</td>
-										<td>22</td>
-										<td>23</td>
-										<td>24</td>
-										<td>25</td>
-									</tr>
-									<tr>
-										<td>26</td>
-										<td>27</td>
-										<td>28</td>
-										<td>29</td>
-										<td>30</td>
-										<td>1</td>
-										<td>2</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputState">Step 4: Select Timeslot</label>
-						<select id="inputState" class="form-control">
-							<option selected>Choose...</option>
-							<option>10:30AM - 11:00AM</option>
-							<option>12:00PM - 1:30PM</option>
-							<option>2:30PM - 3:15PM</option>
-							<option>4:15PM - 5PM</option>
-						</select>
-					</div>
-					
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<button type="submit" class="btn btn-primary">Cancel</button>
 				</form>
+				<?php
+				if(isset($_POST['find-app'])) {
+					$service = $_POST['service'];
+
+					$query = "SELECT *, ServiceDetails.service_name, ServiceDetails.service_id FROM AppointmentDetails LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id WHERE status = 'Unbooked' and AppointmentDetails.service_id = {$service} ORDER BY appointment_date ASC";
+
+					$appointments = getRows($query);
+
+					if ($appointments) {
+						echo"<div class='row'>";
+						foreach ($appointments as $appointment) {
+							$app_date = $appointment['appointment_date'];
+							$start_time = $appointment['app_start'];
+							$end_time = $appointment['app_end'];
+							$app_id = $appointment['appointment_id'];
+
+
+							echo"<div class='col-md-3 mb-4'>";
+							echo"<div class='card text-center'>";
+							echo"<div class='card-body'>";
+							echo"<h5 class='card-title'>{$appointment['therapist_fname']} {$appointment['therapist_lname']}</h5>";
+							echo"<h6>".date('F j, Y', strtotime($app_date))."</h6>";
+							echo"<h6>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</h6>";
+							echo"<a href='process-schedule-app.php?appID={$appointment['appointment_id']}' class='btn btn-primary btn-sm' >Book Appointment</a>";
+							echo"</div>";
+							echo"</div>";
+							echo"</div>";
+						}
+					}
+					echo"</div>";
+				} else {
+					echo"<p>Currently no available appointments.</p>";
+				}
+				?>
 			</div>
 		</div>
 	</div>

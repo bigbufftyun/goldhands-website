@@ -17,13 +17,16 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['tEmail']) OR !isset($_GET['therapistID'])) {
+	if(!isset($_SESSION['tID'])) {
 		header("Location: index.php");
 	}
 
-	$tID = $_GET['therapistID'];
+	$tID = $_SESSION['tID'];
 	$query = "SELECT * FROM Therapists WHERE therapist_id = '{$tID}'";
-	$therapist = getOneRow($query)
+	$therapist = getOneRow($query);
+
+	$query1 = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE Therapists.therapist_id = {$tID} AND appointment_date = CURDATE() and status = 'Booked' ORDER BY app_start ASC";
+	$apps = getRows($query1);
 
 
 ?>
@@ -38,55 +41,55 @@
 						<h1 class="display-4"><?php echo "Hello ".$therapist['therapist_fname']." ".$therapist['therapist_lname']?></h1>
 					</div>
 				</div>
-				<div class="card-header">
-						Today's Appointment Schedule
+				<div class="card">
+					<div class="card-header">
+						Today's Appointments
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							<form>
+								<div class="form-group row">
+									<div class="col">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th scope="col">Date</th>
+													<th scope="col">Time</th>
+													<th scope="col">Patient Name</th>
+													<th scope="col">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+												if ($apps) {
+													foreach($apps as $app) {
+														$app_date = $app['appointment_date'];
+														$start_time = $app['app_start'];
+														$end_time = $app['app_end'];
+														
+														echo"<tr>";
+														echo"<td>".date('F j, Y', strtotime($app_date))."</td>";
+														echo"<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
+														echo"<td>{$app['patient_fname']} {$app['patient_lname']}</td>";
+														echo"<td>{$app['status']}</td>";
+														echo"</tr>";
+
+													}
+												} else {
+													echo"<tr>";
+													echo "<td colspan='4'>No booked appointments today.</td>";
+													echo"</tr>";
+												}
+												?>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</p>
+					</div>
 				</div>
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th scope="col">Time</th>
-							<th scope="col">Patient Name</th>
-							<th scope="col">Service</th>
-							<th scope="col">Status</th>
-							<th scope="col">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>10:45AM</th>
-							<td>Mark Caps</td>
-							<td>Follow-Up</td>
-							<td>Scheduled</td>
-							<td>Open</td>
-						</tr>
-						<tr>
-							<td>2:30PM</th>
-							<td>Jacob Thornton</td>
-							<td>Thornton</td>
-							<td>Scheduled</td>
-							<td>Open</td>
-						</tr>
-						<tr>
-							<td>3:15PM</th>
-							<td>Tyler Waters</td>
-							<td>Follow-Up</td>
-							<td>Scheduled</td>
-							<td>Open</td>
-						</tr>
-					</tbody>
-				</table>
-
-
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-2">
-			</div>
-			<div class="col-10">
-				
-			</div>
-		</div>
-	</div>
 
 
 	<!-- Optional JavaScript; choose one of the two! -->

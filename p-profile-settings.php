@@ -17,11 +17,11 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['pEmail']) OR !isset($_GET['editPID'])) {
+	if(!isset($_SESSION['pID'])) {
 		header("Location: index.php");
 	}
 
-	$editPID = $_GET['editPID'];
+	$editPID = $_SESSION['pID'];
 	$query = "SELECT * FROM Patients WHERE patient_id = '{$editPID}'";
 	$patient = getOneRow($query)
 
@@ -66,7 +66,7 @@
 									</div>
 									<div class="col-6">
 										<label for="inputState">Phone Number</label>
-										<input class="form-control" type="number" max="999999999" name="pPhone" value="<?php echo $patient['p_phone']; ?>">
+										<input class="form-control" type="number" max="9999999999" name="pPhone" value="<?php echo $patient['p_phone']; ?>">
 									</div>
 								</div>
 								<div class="form-group row">

@@ -36,7 +36,20 @@
 			$_SESSION['accessLevel'] = 1;
 			$_SESSION['pID'] = $record['patient_id'];
 
-			header('Location: dashboard.php?patientID='.$_SESSION['pID']);
+			header('Location: dashboard.php');
+
+		} else if($record['p_email'] !== $patientEmail OR !password_verify($patientPassword, $record['p_password'])) {
+	
+			echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+			echo "<strong>Holy guacamole!</strong> You should check in on some of those fields below.";
+			echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>";
+			echo "<span aria-hidden='true'>&times;</span>";
+			echo "</button>";
+			echo "</div>";
+
+
+
+
 		} else {
 
 			echo "<p>did not log in</p>";

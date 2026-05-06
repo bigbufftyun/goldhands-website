@@ -17,9 +17,17 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] != 2) {
+	if(!isset($_SESSION['tID'])) {
 		header("Location: index.php");
 	}
+
+	$tID = $_SESSION['tID'];
+
+	$query = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE appointment_date >= CURDATE() and Therapists.therapist_id = {$tID} and status = 'Booked' ORDER BY appointment_date, app_start ASC";
+	$records = getRows($query);
+
+	$query4 = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE appointment_date < CURDATE() and Therapists.therapist_id = {$tID} ORDER BY app_start DESC";
+	$pastapps = getRows($query4);
 
 
 ?>
@@ -32,225 +40,114 @@
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
-						<h1 class="display-4">Appointment History</h1>
+						<h1 class="display-4">Appointment Details</h1>
 					</div>
 				</div>
-				<div class="card-header">
-					Past Appointment History
-				</div>
-				<div class="accordion" id="accordionExample">
-					<div class="card">
-						<div class="card-header" id="headingOne">
-							<h2 class="mb-0">
-								<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-									February 18th, 2026 - June Kim
-								</button>
-							</h2>
-						</div>
-
-						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-							<div class="card-body">
-								<div class="form-row">
-									<div class="form-group col-md-8">
-									</div>
-
-									<div class="form-group col-md-4">
-										<label for="inputState">Appointment Status</label>
-										<select id="inputState" class="form-control">
-											<option selected>Status select..</option>
-											<option>Completed</option>
-											<option>Rescheduled</option>
-											<option>Cancelled</option>
-											<option>No-show</option>
-										</select>
-									</div>
-								</div>
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th scope="col">First</th>
-											<th scope="col">Last</th>
-											<th scope="col">Email</th>
-											<th scope="col">Phone</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>June</td>
-											<td>Kim</td>
-											<td>jkim94@outlook.com</td>
-											<td>(613) 912-1994</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th scope="col">Service Type</th>
-											<th scope="col">Date</th>
-											<th scope="col">Time</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Counseling</td>
-											<td>February 18th, 2026</td>
-											<td>12:30pm</td>
-										</tr>
-									</tbody>
-								</table>
-
-								<div class="input-group mb-3 input-group-prepend">
-									<textarea class="form-control" placeholder="Patient Notes" aria-label="Patient Notes"></textarea>
-									<div class="input-group-append">
-										<input class="btn btn-primary" type="submit" value="Submit">
-									</div>
-								</div>
-
-							</div>
-						</div>
+				<div class="card">
+					<div class="card-header">
+						Upcoming Schedule
 					</div>
-					<div class="card">
-						<div class="card-header" id="headingTwo">
-							<h2 class="mb-0">
-								<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									February 18th, 2026 - June Kim
-									
-								</button>
-							</h2>
-						</div>
-						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-							<div class="card-body">
-								<div class="form-row">
-									<div class="form-group col-md-8">
-									</div>
+					<div class="card-body">
+						<p class="card-text">
+							<form>
+								<div class="form-group row">
+									<div class="col">
+										<table class="table table-bordered table-sm">
+											<thead>
+												<tr>
+													<th>Date</th>
+													<th>Time</th>
+													<th>Patient Name</th>
+													<th>Appointment Notes</th>
+													<th>Status</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php 
+												if ($records) {
+													foreach($records as $record) {
+														$app_date = $record['appointment_date'];
+														$start_time = $record['app_start'];
+														$end_time = $record['app_end'];
+														
+														echo"<tr>";
+														echo"<td>".date('F j, Y', strtotime($app_date))."</td>";
+														echo"<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
+														echo"<td>{$record['patient_fname']} {$record['patient_lname']}</td>";
+														echo"<td>{$record['app_notes']}</td>";
+														echo"<td>{$record['status']}</td>";
+														echo"<td><a href='write-notes.php?appID={$record['appointment_id']}' class='btn btn-primary btn-sm'>Update Notes</a><a href='write-notes.php?appID={$record['appointment_id']}' class='btn btn-primary btn-sm'>Edit Appointment</a></td>";
+														echo"</tr>";
 
-									<div class="form-group col-md-4">
-										<label for="inputState">Appointment Status</label>
-										<select id="inputState" class="form-control">
-											<option selected>Status select..</option>
-											<option>Completed</option>
-											<option>Rescheduled</option>
-											<option>Cancelled</option>
-											<option>No-show</option>
-										</select>
+													}
+												} else {
+													echo "<p>No scheduled appointmnents found.</p>";
+												}
+												?>
+											</tbody>	
+										</table>
 									</div>
 								</div>
-
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th scope="col">First</th>
-											<th scope="col">Last</th>
-											<th scope="col">Email</th>
-											<th scope="col">Phone</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>June</td>
-											<td>Kim</td>
-											<td>jkim94@outlook.com</td>
-											<td>(613) 912-1994</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th scope="col">Service Type</th>
-											<th scope="col">Date</th>
-											<th scope="col">Time</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Counseling</td>
-											<td>February 18th, 2026</td>
-											<td>12:30pm</td>
-										</tr>
-									</tbody>
-								</table>
-
-								<div class="input-group mb-3 input-group-prepend">
-									<textarea class="form-control" placeholder="Patient Notes" aria-label="Patient Notes"></textarea>
-									<div class="input-group-append">
-										<input class="btn btn-primary" type="submit" value="Submit">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-header" id="headingThree">
-							<h2 class="mb-0">
-								<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-									February 18th, 2026 - June Kim
-								</button>
-							</h2>
-						</div>
-						<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-							<div class="card-body">
-								<div class="form-row">
-									<div class="form-group col-md-8">
-									</div>
-
-									<div class="form-group col-md-4">
-										<label for="inputState">Appointment Status</label>
-										<select id="inputState" class="form-control">
-											<option selected>Status select..</option>
-											<option>Completed</option>
-											<option>Rescheduled</option>
-											<option>Cancelled</option>
-											<option>No-show</option>
-										</select>
-									</div>
-								</div>
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th scope="col">First</th>
-											<th scope="col">Last</th>
-											<th scope="col">Email</th>
-											<th scope="col">Phone</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>June</td>
-											<td>Kim</td>
-											<td>jkim94@outlook.com</td>
-											<td>(613) 912-1994</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table table-bordered">
-									<thead>
-										<tr>
-											<th scope="col">Service Type</th>
-											<th scope="col">Date</th>
-											<th scope="col">Time</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Counseling</td>
-											<td>February 18th, 2026</td>
-											<td>12:30pm</td>
-										</tr>
-									</tbody>
-								</table>
-
-								<div class="input-group mb-3 input-group-prepend">
-									<textarea class="form-control" placeholder="Patient Notes" aria-label="Patient Notes"></textarea>
-									<div class="input-group-append">
-										<input class="btn btn-primary" type="submit" value="Submit">
-									</div>
-								</div>
-							</div>
-						</div>
+							</form>
+						</p>
 					</div>
 				</div>
+
+				<div class="card">
+					<div class="card-header">
+						Past Schedule
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							<form>
+								<div class="form-group row">
+									<div class="col">
+										<table class="table table-bordered table-sm">
+											<thead>
+												<tr>
+													<th>Date</th>
+													<th>Time</th>
+													<th>Patient Name</th>
+													<th>Appointment Notes</th>
+													<th>Status</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php 
+												if ($pastapps) {
+													foreach($pastapps as $pastapp) {
+														$app_datep = $pastapp['appointment_date'];
+														$start_timep = $pastapp['app_start'];
+														$end_timep = $pastapp['app_end'];
+														
+														echo"<tr>";
+														echo"<td>".date('F j, Y', strtotime($app_datep))."</td>";
+														echo"<td>".date('g:i A', strtotime($start_timep))." - ".date('g:i A', strtotime($end_timep))."</td>";
+														echo"<td>{$pastapp['patient_fname']} {$pastapp['patient_lname']}</td>";
+														echo"<td>{$pastapp['app_notes']}</td>";
+														echo"<td>{$pastapp['status']}</td>";
+														echo"<td><a href='write-notes.php?appID={$pastapp['appointment_id']}' class='btn btn-primary btn-sm'>Update Notes</a></td>";
+														echo"</tr>";
+
+													}
+												} else {
+													echo "<p>No past appointmnents found.</p>";
+												}
+												?>
+											</tbody>	
+										</table>
+									</div>
+								</div>
+							</form>
+						</p>
+					</div>
+				</div>
+
+
+
+				
 
 
 			</div>

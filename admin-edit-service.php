@@ -14,7 +14,7 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['aEmail'])) {
+if(!isset($_SESSION['aID'])) {
 	header("Location: index.php");
 	exit();
 }
@@ -76,7 +76,7 @@ $service = getOneRow($query);
 
 					<div class="card-body">
 						<?php if($service) { ?>
-							<form action="edit-service.php" method="POST">
+							<form action="admin-edit-service.php" method="POST">
 
 								<input type="hidden" name="serviceID" value="<?php echo $service['service_id']; ?>">
 
@@ -97,7 +97,13 @@ $service = getOneRow($query);
 								<div class="form-group row">
 									<div class="col-4">
 										<label>Duration</label>
-										<input class="form-control" type="number" name="sDuration" value="<?php echo $service['duration_minutes']; ?>" required>
+										<select class="form-control" name="sDuration" required>
+											<option value="30" <?php if($service['duration_minutes'] == '30') echo 'selected'; ?>>30</option>
+											<option value="45" <?php if($service['duration_minutes'] == '45') echo 'selected'; ?>>45</option>
+											<option value="60" <?php if($service['duration_minutes'] == '60') echo 'selected'; ?>>60</option>
+											<option value="90" <?php if($service['duration_minutes'] == '90') echo 'selected'; ?>>90</option>
+											<option value="120" <?php if($service['duration_minutes'] == '120') echo 'selected'; ?>>120</option>
+										</select>
 									</div>
 
 									<div class="col-4">

@@ -17,12 +17,12 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['tEmail']) OR !isset($_GET['therapistID'])) {
+if(!isset($_SESSION['tID'])) {
 	header("Location: index.php");
 }
 
-$tID = $_GET['therapistID'];
-$query = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id WHERE Therapists.therapist_id = '{$tID}'";
+$tID = $_SESSION['tID'];
+$query = "SELECT DISTINCT Patients.patient_fname, Patients.patient_lname, Patients.p_email, Patients.p_phone, Patients.p_street, Patients.p_city, Patients.p_state, Patients.p_zipcode FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id WHERE Therapists.therapist_id = '{$tID}' and AppointmentDetails.patient_id != 'NULL'";
 
 $histories = getRows($query)
 
@@ -39,42 +39,50 @@ $histories = getRows($query)
 						<h1 class="display-4">Health Records</h1>
 					</div>
 				</div>
-				<div class="card-header">
-					Current Patient Records
-				</div>
-				<div class="card-body">
-					<p class="card-text">
-						<table class='table table-bordered'>
-							<thead>
-								<tr>
-									<th scope='col'>Patient Name</th>
-									<th scope='col'>Email</th>
-									<th scope='col'>Phone</th>
-									<th scope='col'>Address</th>
-								</tr>
-							</thead>
-							<?php
-							if($histories) {
-								foreach ($histories as $history) {
+				<div class="card">
+					<div class="card-header">
+						Current Patient Records
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							<form>
+								<div class="form-group row">
+									<div class="col">
+										<table class="table table-bordered table-sm">
+											<thead>
+												<tr>
+													<th scope='col'>Patient Name</th>
+													<th scope='col'>Email</th>
+													<th scope='col'>Phone</th>
+													<th scope='col'>Address</th>
+												</tr>
+											</thead>
+											<?php
+											if($histories) {
+												foreach ($histories as $history) {
 
-									echo "<tbody>";
-									echo "<tr>";
-									echo "<td>{$history['patient_fname']} {$history['patient_lname']}</td>";
-									echo "<td>{$history['p_email']}</td>";
-									echo "<td>{$history['p_phone']}</td>";
-									echo "<td>{$history['p_street']}, {$history['p_city']}, {$history['p_state']}, {$history['p_zipcode']}</td>";
-									echo "</tr>";
-									echo "</tbody>";
+													echo "<tbody>";
+													echo "<tr>";
+													echo "<td>{$history['patient_fname']} {$history['patient_lname']}</td>";
+													echo "<td>{$history['p_email']}</td>";
+													echo "<td>{$history['p_phone']}</td>";
+													echo "<td>{$history['p_street']}, {$history['p_city']}, {$history['p_state']}, {$history['p_zipcode']}</td>";
+													echo "</tr>";
+													echo "</tbody>";
 
 
-								}
+												}
 
-							} else {
-								echo "<p>something is not working!</p>";
-							}
-							?>							
-						</table>
-					</p>
+											} else {
+												echo "<p>something is not working!</p>";
+											}
+											?>							
+										</table>
+									</div>
+								</div>
+							</form>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>

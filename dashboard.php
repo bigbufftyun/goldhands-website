@@ -17,17 +17,19 @@
 	require_once("dbhelper.php");
 	session_start();
 
-	if(!isset($_SESSION['pEmail']) OR !isset($_GET['patientID'])) {
+	if(!isset($_SESSION['pID'])) {
 		header("Location: index.php");
 	}
 
-	$pID = $_GET['patientID'];
+	$pID = $_SESSION['pID'];
 	$query = "SELECT * FROM Patients WHERE patient_id = '{$pID}'";
-	$patient = getOneRow($query)
+	$patient = getOneRow($query);
+
+	$query1 = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE Patients.patient_id = {$pID} and appointment_date >= CURDATE() ORDER BY app_start DESC";
+	$apps = getRows($query1);
 
 
 ?>
-
 <body>
 	<?php require_once("navbar.php")?>
 	<div class="container-fluid">
@@ -45,13 +47,55 @@
 					<div class="card-header">
 						Upcoming Appointments
 					</div>
-					<a href="#" class="list-group-item list-group-item-action">March 9, 2026 - Follow-Up Appointment</a>
-					<a href="#" class="list-group-item list-group-item-action">March 20, 2026 - One-on-One Session</a>
-					<a href="#" class="list-group-item list-group-item-action">March 26, 2026 - One-on-One Session</a>
+					<div class="card-body">
+						<p class="card-text">
+							<form>
+								<div class="form-group row">
+									<div class="col">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th scope="col">Date</th>
+													<th scope="col">Time</th>
+													<th scope="col">Therapist Name</th>
+													<th scope="col">Service</th>
+													<th scope="col">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+												if ($apps) {
+													foreach($apps as $app) {
+														$app_date = $app['appointment_date'];
+														$start_time = $app['app_start'];
+														$end_time = $app['app_end'];
+														
+														echo"<tr>";
+														echo"<td>".date('F j, Y', strtotime($app_date))."</td>";
+														echo"<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
+														echo"<td>{$app['therapist_fname']} {$app['therapist_lname']}</td>";
+														echo"<td>{$app['service_name']}</td>";
+														echo"<td>{$app['status']}</td>";
+														echo"</tr>";
+
+													}
+												} else {
+													echo "<p>No appointments today.</p>";
+												}
+												?>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 
 	<!-- Optional JavaScript; choose one of the two! -->

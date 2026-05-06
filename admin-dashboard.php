@@ -17,12 +17,16 @@
 require_once("dbhelper.php");
 session_start();
 
-if(!isset($_SESSION['aEmail']) OR !isset($_GET['adminID'])) {
+if(!isset($_SESSION['aID']) ) {
 	header("Location: index.php");
 }
+$aID = $_SESSION['aID'];
 
-$query = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE appointment_date = CURDATE() ORDER BY app_start ASC";
+$query = "SELECT * FROM AppointmentDetails LEFT JOIN Patients ON AppointmentDetails.patient_id=Patients.patient_id LEFT JOIN Therapists ON AppointmentDetails.therapist_id=Therapists.therapist_id LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE appointment_date = CURDATE() and status = 'Booked' ORDER BY app_start ASC";
 $records = getRows($query);
+
+$query1 = "SELECT * FROM Admin WHERE admin_id = {$aID}";
+$admin = getOneRow($query1);
 
 
 ?>
@@ -35,7 +39,7 @@ $records = getRows($query);
 			<div class="col-10">
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
-						<h1 class="display-4">Welcome Beri.</h1>
+						<h1 class="display-4"><?php echo "Hello ".$admin['a_fname']." ".$admin['a_lname']?>.</h1>
 					</div>
 				</div>
 				<div class="card">
@@ -61,8 +65,11 @@ $records = getRows($query);
 												<?php
 												if ($records) {
 													foreach($records as $record) {
+														$start_time = $record['app_start'];
+														$end_time = $record['app_end'];
+
 														echo"<tr>";
-														echo"<td>{$record['app_start']}</th>";
+														echo"<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
 														echo"<td>{$record['patient_fname']} {$record['patient_lname']}</td>";
 														echo"<td>{$record['therapist_fname']} {$record['therapist_lname']}</td>";
 														echo"<td>{$record['service_name']}</td>";
@@ -71,7 +78,9 @@ $records = getRows($query);
 
 													}
 												} else {
-													echo "<p>No appointments today.</p>";
+													echo"<tr>";
+													echo "<td colspan='5'>No appointments today.</td>";
+													echo"</tr>";
 												}
 												?>
 

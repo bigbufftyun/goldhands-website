@@ -17,7 +17,7 @@ if(isset($_POST['edit-pinfo'])) {
 
 	runQuery($query);
 
-	header("Location: p-profile-settings.php?patient_id={$pID}");
+	header("Location: p-profile-settings.php");
 
 } else {
 	header("Location: index.php");

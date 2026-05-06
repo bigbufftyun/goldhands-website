@@ -14,12 +14,26 @@
 	<title>Payments</title>
 </head>
 <?php
-	require_once("dbhelper.php");
-	session_start();
+require_once("dbhelper.php");
+session_start();
 
-	if(!isset($_SESSION['accessLevel']) OR $_SESSION['accessLevel'] > 1) {
-		header("Location: index.php");
-	}
+if(!isset($_SESSION['pID'])) {
+	header("Location: index.php");
+}
+
+$pID = $_SESSION['pID'];
+
+$query = "SELECT *, ServiceDetails.base_price FROM AppointmentDetails LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE paid = 'Unpaid' AND patient_id = {$pID}";
+$invoices = getRows($query);
+
+$query2 = "SELECT *, ServiceDetails.base_price FROM AppointmentDetails LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE paid = 'Paid' AND patient_id = {$pID} ORDER BY appointment_date DESC";
+$invoices2 = getRows($query2);
+
+$query1 = "SELECT SUM(ServiceDetails.base_price) AS total_price FROM AppointmentDetails LEFT JOIN ServiceDetails ON AppointmentDetails.service_id=ServiceDetails.service_id WHERE paid = 'Unpaid' AND patient_id = {$pID}";
+$totalprice = getOneRow($query1);
+
+$total = $totalprice['total_price'];
+
 
 ?>
 <body>
@@ -39,52 +53,52 @@
 						Current Balance
 					</div>
 					<div class="card-body">
-						<p class="card-text text-right">Invoice #0054</p>
 						<p class="card-text">
-							<form>
+							<form action="payments.php" method="POST">
 								<div class="form-group row">
 									<div class="col">
 										<table class="table table-bordered table-sm">
 											<thead>
 												<tr>
-													<th>Session Cost</th>
-													<th>Session Date</th>
+													<th>Invoice ID</th>
+													<th>Appointment Date</th>
 													<th>Service</th>
+													<th>Appointment Cost</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>$200.00</td>
-													<td>03/20/2026</td>
-													<td>Counseling</td>
-												</tr>
-												<tr>
-													<td>$250.00</td>
-													<td>03/23/2026</td>
-													<td>Counseling</td>
-												</tr>
+												<?php
+												if($invoices) {
+													foreach ($invoices as $invoice) {
+														$app_date = $invoice['appointment_date'];
+														
+
+														echo"<tr>";
+														echo "<td><input type='text' name='appID' value='{$invoice['appointment_id']}' readonly></td>";
+														echo"<td>".date('F j, Y', strtotime($app_date))."</td>";
+														echo"<td>{$invoice['service_name']}</td>";
+														echo"<td>$".$invoice['base_price'].".00</td>";
+														echo"</tr>";
+													}
+												}
+												?>
 											</tbody>
 										</table>
 									</div>
 								</div>
 
 								<div class="form-group row">
-									<div class="col-4">
+									<div class="col-6">
+									</div>
+									<div class="col-3">
+										<button type="submit" class="btn btn-primary float-right btn-sm" style="position: relative; top: 25px;" name='paytotal'>Make a Payment</button>
+									</div>
+									<div class="col-3">
 										<label for="inputState">Payment Total</label>
-										<input class="form-control" type="text" placeholder="$450.00" readonly>
+										<input class="form-control" type="text" value="<?php echo $totalprice['total_price']?>" name="totalPrice" readonly>
 									</div>
-									<div class="col-8">
-										<label for="inputState">Payment Method</label>
-										<select id="inputState" class="form-control">
-											<option selected>Choose...</option>
-											<option>PayPal</option>
-											<option>Insurance</option>
-										</select>
-									</div>
+
 								</div>
-
-								<button type="submit" class="btn btn-primary">Submit Payment</button>
-
 							</form>
 						</p>
 					</div>
@@ -96,92 +110,36 @@
 					</div>
 					<div class="card-body">
 						<p class="card-text">
-							February
 							<form>
 								<div class="form-group row">
 									<div class="col">
 										<table class="table table-bordered table-sm">
 											<thead>
 												<tr>
-													<th>Session Cost</th>
 													<th>Session Date</th>
 													<th>Service</th>
-													<th>Payment Type</th>
-													<th>Invoice #</th>
+													<th>Session Cost</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>$200.00</td>
-													<td>03/20/2026</td>
-													<td>Counseling</td>
-													<td>PayPal</td>
-													<td>#0012</td>
-												</tr>
-												<tr>
-													<td>$250.00</td>
-													<td>03/23/2026</td>
-													<td>Counseling</td>
-													<td>Insurance</td>
-													<td>#0010</td>
-												</tr>
+												<?php
+												if($invoices2) {
+													foreach ($invoices2 as $invoice2) {
+														$past_date = $invoice2['appointment_date'];
+
+														echo"<tr>";
+														echo"<td>".date('F j, Y', strtotime($past_date))."</td>";
+														echo"<td>{$invoice2['service_name']}</td>";
+														echo"<td>$".$invoice2['base_price'].".00</td>";
+														echo"</tr>";
+													}
+												}
+												?>
+												
 											</tbody>
 										</table>
 									</div>
 								</div>
-
-								<div class="form-group row">
-									<div class="col-4">
-										<label for="inputState">Payment Total</label>
-										<input class="form-control" type="text" placeholder="$450.00" readonly>
-									</div>
-								</div>
-
-							</form>
-						</p>
-						<hr>
-						<p class="card-text">
-							January
-							<form>
-								<div class="form-group row">
-									<div class="col">
-										<table class="table table-bordered table-sm">
-											<thead>
-												<tr>
-													<th>Session Cost</th>
-													<th>Session Date</th>
-													<th>Service</th>
-													<th>Payment Type</th>
-													<th>Invoice #</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>$200.00</td>
-													<td>03/20/2026</td>
-													<td>Counseling</td>
-													<td>PayPal</td>
-													<td>#0012</td>
-												</tr>
-												<tr>
-													<td>$250.00</td>
-													<td>03/23/2026</td>
-													<td>Counseling</td>
-													<td>Insurance</td>
-													<td>#0010</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-
-								<div class="form-group row">
-									<div class="col-4">
-										<label for="inputState">Payment Total</label>
-										<input class="form-control" type="text" placeholder="$450.00" readonly>
-									</div>
-								</div>
-
 							</form>
 						</p>
 					</div>

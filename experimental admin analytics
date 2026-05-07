@@ -1,13 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
+	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
+	<!-- Chart.js -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+	<!-- Custom External CSS -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<title>Admin Analytics</title>
@@ -28,7 +32,7 @@
 	$totalAppointments = getOneRow("SELECT COUNT(*) AS total FROM AppointmentDetails");
 	$totalServices = getOneRow("SELECT COUNT(*) AS total FROM ServiceDetails");
 
-	// RECENT COMPLETED APPOINTMENTS
+	// RECENT APPOINTMENTS
 	$query = "
 	SELECT 
 		AppointmentDetails.appointment_id,
@@ -45,8 +49,7 @@
 	LEFT JOIN Patients ON AppointmentDetails.patient_id = Patients.patient_id
 	LEFT JOIN Therapists ON AppointmentDetails.therapist_id = Therapists.therapist_id
 	LEFT JOIN ServiceDetails ON AppointmentDetails.service_id = ServiceDetails.service_id
-	WHERE AppointmentDetails.status = 'Completed'
-	ORDER BY AppointmentDetails.appointment_date DESC
+	WHERE status = 'Completed' ORDER BY AppointmentDetails.appointment_date DESC
 	LIMIT 5
 	";
 
@@ -63,9 +66,7 @@
 
 	// MOST POPULAR SERVICES
 	$serviceQuery = "
-	SELECT 
-		ServiceDetails.service_name, 
-		COUNT(*) AS total
+	SELECT ServiceDetails.service_name, COUNT(*) AS total
 	FROM AppointmentDetails
 	LEFT JOIN ServiceDetails ON AppointmentDetails.service_id = ServiceDetails.service_id
 	GROUP BY ServiceDetails.service_name
@@ -74,16 +75,16 @@
 
 	$services = getRows($serviceQuery);
 
-	// PROFIT OVER TIME BY MONTH
+	// PROFIT OVER TIME
 	$profitQuery = "
 	SELECT 
-		DATE_FORMAT(AppointmentDetails.appointment_date, '%b') AS month_label,
+		AppointmentDetails.appointment_date,
 		SUM(ServiceDetails.base_price) AS total_profit
 	FROM AppointmentDetails
 	LEFT JOIN ServiceDetails ON AppointmentDetails.service_id = ServiceDetails.service_id
 	WHERE AppointmentDetails.status = 'Completed'
-	GROUP BY MONTH(AppointmentDetails.appointment_date)
-	ORDER BY MONTH(AppointmentDetails.appointment_date)
+	GROUP BY AppointmentDetails.appointment_date
+	ORDER BY AppointmentDetails.appointment_date ASC
 	";
 
 	$profits = getRows($profitQuery);
@@ -101,7 +102,7 @@
 				<div class="jumbotron jumbotron-fluid">
 					<div class="container">
 						<h1 class="display-4">Admin Analytics Dashboard</h1>
-						<p class="lead">Overview of system activity, appointment data, profit trends, and service popularity.</p>
+						<p class="lead">Overview of system activity, appointment data, and profit trends.</p>
 					</div>
 				</div>
 
@@ -153,22 +154,11 @@
 				<!-- PROFIT OVER TIME GRAPH -->
 				<div class="card mb-4">
 					<div class="card-header">
-						Profit Over Time by Month
+						Profit Over Time
 					</div>
 
 					<div class="card-body">
 						<canvas id="profitChart"></canvas>
-					</div>
-				</div>
-
-				<!-- MOST POPULAR SERVICES BAR GRAPH -->
-				<div class="card mb-4">
-					<div class="card-header">
-						Most Popular Services Graph
-					</div>
-
-					<div class="card-body">
-						<canvas id="servicesChart"></canvas>
 					</div>
 				</div>
 
@@ -201,7 +191,7 @@
 					</tbody>
 				</table>
 
-				<!-- MOST POPULAR SERVICES TABLE -->
+				<!-- MOST POPULAR SERVICES -->
 				<div class="card-header">
 					Most Popular Services
 				</div>
@@ -232,7 +222,7 @@
 
 				<!-- RECENT APPOINTMENTS -->
 				<div class="card-header">
-					Recent Completed Appointments
+					Recent Appointments
 				</div>
 
 				<table class="table table-bordered">
@@ -256,8 +246,8 @@
 								$end_time = $appointment['app_end'];
 
 								echo "<tr>";
-								echo "<td>".date('F j, Y', strtotime($app_date))."</td>";
-								echo "<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
+								echo"<td>".date('F j, Y', strtotime($app_date))."</td>";
+								echo"<td>".date('g:i A', strtotime($start_time))." - ".date('g:i A', strtotime($end_time))."</td>";
 								echo "<td>{$appointment['patient_fname']} {$appointment['patient_lname']}</td>";
 								echo "<td>{$appointment['therapist_fname']} {$appointment['therapist_lname']}</td>";
 								echo "<td>{$appointment['service_name']}</td>";
@@ -265,7 +255,7 @@
 								echo "</tr>";
 							}
 						} else {
-							echo "<tr><td colspan='6' class='text-center'>No appointments found.</td></tr>";
+							echo "<tr><td colspan='8' class='text-center'>No appointments found.</td></tr>";
 						}
 						?>
 					</tbody>
@@ -281,7 +271,7 @@
 			<?php
 			if($profits) {
 				foreach($profits as $profit) {
-					echo "'" . $profit['month_label'] . "',";
+					echo "'" . date('M j', strtotime($profit['appointment_date'])) . "',";
 				}
 			}
 			?>
@@ -324,7 +314,7 @@
 					x: {
 						title: {
 							display: true,
-							text: 'Month'
+							text: 'Appointment Date'
 						}
 					}
 				}
@@ -332,61 +322,9 @@
 		});
 	</script>
 
-	<!-- SERVICES BAR CHART SCRIPT -->
-	<script>
-		const serviceLabels = [
-			<?php
-			if($services) {
-				foreach($services as $service) {
-					echo "'" . $service['service_name'] . "',";
-				}
-			}
-			?>
-		];
+	<!-- Optional JavaScript; choose one of the two! -->
 
-		const serviceData = [
-			<?php
-			if($services) {
-				foreach($services as $service) {
-					echo $service['total'] . ",";
-				}
-			}
-			?>
-		];
-
-		const servicesChart = document.getElementById('servicesChart');
-
-		new Chart(servicesChart, {
-			type: 'bar',
-			data: {
-				labels: serviceLabels,
-				datasets: [{
-					label: 'Total Bookings',
-					data: serviceData,
-					borderWidth: 1
-				}]
-			},
-			options: {
-				responsive: true,
-				scales: {
-					y: {
-						beginAtZero: true,
-						title: {
-							display: true,
-							text: 'Number of Bookings'
-						}
-					},
-					x: {
-						title: {
-							display: true,
-							text: 'Services'
-						}
-					}
-				}
-			}
-		});
-	</script>
-
+	<!-- Option 1: jQuery and Bootstrap Bundle includes Popper -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
